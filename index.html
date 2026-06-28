@@ -22,10 +22,10 @@
   --rad:10px;--rsm:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
-body{max-width:1440px;margin:0 auto;padding:16px 20px 80px}
-.hd{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);margin-bottom:10px;flex-wrap:wrap}
-.hd-logo{font-family:var(--mono);font-size:15px;font-weight:500}.hd-logo span{color:var(--g)}
+html{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body{max-width:1440px;margin:0 auto;padding:12px 16px 40px}
+.hd{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);margin-bottom:8px;flex-wrap:wrap}
+.hd-logo{font-family:var(--mono);font-size:16px;font-weight:500}.hd-logo span{color:var(--g)}
 .hd-meta{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:1px}
 .hd-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .dot-live{width:7px;height:7px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);will-change:opacity;animation:blink 2.2s infinite}
@@ -36,12 +36,12 @@ body{max-width:1440px;margin:0 auto;padding:16px 20px 80px}
 .mode-btn.on{background:var(--s3);color:var(--tx);border:.5px solid var(--b2)}
 .calc-toggle-btn{font-family:var(--mono);font-size:10px;padding:5px 12px;border:.5px solid var(--b2);border-radius:var(--rsm);background:transparent;color:var(--t3);cursor:pointer;transition:all .15s}
 .calc-toggle-btn:hover,.calc-toggle-btn.on{color:var(--a);border-color:var(--a);background:var(--ad)}
-.main-tabs{display:flex;gap:2px;background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:4px;margin-bottom:10px}
-.main-tab{font-family:var(--mono);font-size:11px;padding:6px 18px;border-radius:var(--rsm);border:none;cursor:pointer;color:var(--t3);background:transparent;transition:all .15s}
+.main-tabs{display:flex;gap:2px;background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:3px;margin-bottom:8px}
+.main-tab{font-family:var(--mono);font-size:11px;padding:5px 14px;border-radius:var(--rsm);border:none;cursor:pointer;color:var(--t3);background:transparent;transition:all .15s}
 .main-tab:hover{color:var(--tx)}
 .main-tab.on{background:var(--s2);color:var(--tx);border:.5px solid var(--b2)}
 .tab-pane{display:none}.tab-pane.on{display:block}
-.upload-bar{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);margin-bottom:10px;flex-wrap:wrap}
+.upload-bar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);margin-bottom:8px;flex-wrap:wrap}
 .upload-btn{font-family:var(--mono);font-size:11px;padding:5px 14px;border-radius:var(--rsm);border:.5px solid var(--g);color:var(--g);background:var(--gd);cursor:pointer;transition:all .15s;white-space:nowrap}
 .upload-btn:hover{background:rgba(32,199,122,.28)}
 .upload-info-text{font-family:var(--mono);font-size:10px;color:var(--t3)}
@@ -50,8 +50,8 @@ body{max-width:1440px;margin:0 auto;padding:16px 20px 80px}
 .clear-btn{font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:var(--rsm);border:.5px solid var(--b2);color:var(--t3);background:transparent;cursor:pointer}
 .clear-btn:hover{color:var(--r);border-color:var(--r)}
 #file-drop{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
-.filter-panel{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:11px 14px;margin-bottom:10px}
-.filter-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:7px}
+.filter-panel{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:8px 12px;margin-bottom:8px}
+.filter-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:5px}
 .filter-row:last-child{margin-bottom:0}
 .flbl{font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;min-width:56px;flex-shrink:0}
 .fpill{font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:20px;border:.5px solid var(--b2);cursor:pointer;color:var(--t2);background:transparent;transition:all .12s;white-space:nowrap;user-select:none}
@@ -66,7 +66,7 @@ body{max-width:1440px;margin:0 auto;padding:16px 20px 80px}
 .filter-count{font-family:var(--mono);font-size:10px;color:var(--t3);margin-left:auto}
 .filter-reset{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:var(--rsm);border:.5px solid var(--b2);color:var(--t3);background:transparent;cursor:pointer}
 .filter-reset:hover{color:var(--r);border-color:var(--r)}
-.calc-block{background:var(--s1);border:.5px solid var(--b2);border-radius:var(--rad);padding:11px 14px;margin-bottom:10px}
+.calc-block{background:var(--s1);border:.5px solid var(--b2);border-radius:var(--rad);padding:8px 12px;margin-bottom:8px}
 .calc-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
 .calc-title-lbl{font-family:var(--mono);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:6px}
 .calc-dot{width:5px;height:5px;border-radius:50%;background:var(--a);flex-shrink:0}
@@ -97,22 +97,22 @@ body{max-width:1440px;margin:0 auto;padding:16px 20px 80px}
 .calc-card-pnl{font-family:var(--mono);font-size:15px;font-weight:500;line-height:1.1}
 .calc-card-meta{font-family:var(--mono);font-size:8px;color:var(--t3);margin-top:3px}
 .calc-card-delta{font-family:var(--mono);font-size:9px;margin-top:4px}
-.kpi-grid{display:grid;gap:8px;margin-bottom:10px}
+.kpi-grid{display:grid;gap:7px;margin-bottom:8px}
 .kpi-grid-std{grid-template-columns:repeat(6,1fr)}
 .kpi-grid-ext{grid-template-columns:repeat(8,1fr)}
-.kpi{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:13px 15px;position:relative;overflow:hidden}
+.kpi{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:10px 12px;position:relative;overflow:hidden}
 .kpi:hover{border-color:var(--b2)}
-.kpi-label{font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
-.kpi-val{font-family:var(--mono);font-size:21px;font-weight:500;line-height:1;margin-bottom:3px}
+.kpi-label{font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.kpi-val{font-family:var(--mono);font-size:20px;font-weight:500;line-height:1;margin-bottom:2px}
 .kpi-sub{font-family:var(--mono);font-size:9px;color:var(--t3)}
 .kpi-arrow{position:absolute;right:10px;top:10px;font-size:11px}
 .kpi-sem{position:absolute;right:0;top:0;bottom:0;width:3px;border-radius:0 var(--rad) var(--rad) 0}
-.row{display:grid;gap:10px;margin-bottom:10px}
+.row{display:grid;gap:8px;margin-bottom:8px}
 .r2{grid-template-columns:1fr 1fr}
 .r3{grid-template-columns:1fr 1fr 1fr}
 .r-main{grid-template-columns:3fr 1fr}
 .r-eq{grid-template-columns:2fr 1fr}
-.card{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:14px}
+.card{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:11px 13px}
 .card:hover{border-color:var(--b2)}
 .card-title{font-family:var(--mono);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .card-dot{width:5px;height:5px;border-radius:50%}
@@ -124,11 +124,11 @@ body{max-width:1440px;margin:0 auto;padding:16px 20px 80px}
 table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
 thead{position:sticky;top:0;z-index:2}
 thead tr{background:var(--s2)}
-th{color:var(--t3);font-weight:400;text-align:left;padding:7px 10px;border-bottom:.5px solid var(--b2);white-space:nowrap;cursor:pointer;user-select:none;font-size:10px}
+th{color:var(--t3);font-weight:400;text-align:left;padding:6px 9px;border-bottom:.5px solid var(--b2);white-space:nowrap;cursor:pointer;user-select:none;font-size:10px}
 th:hover{color:var(--t2)}
 th.sa::after{content:' ↑';color:var(--g)}
 th.sd::after{content:' ↓';color:var(--g)}
-td{padding:6px 10px;border-bottom:.5px solid var(--b1);color:var(--t2);white-space:nowrap;font-size:11px}
+td{padding:5px 9px;border-bottom:.5px solid var(--b1);color:var(--t2);white-space:nowrap;font-size:11px}
 tr:hover td{background:rgba(255,255,255,.03);color:var(--tx)}
 td.num{text-align:right}
 tr.grp td{background:rgba(244,166,35,.04)}
@@ -158,9 +158,9 @@ tr.grp:hover td{background:rgba(244,166,35,.08)}
 .pager-info{font-family:var(--mono);font-size:9px;color:var(--t3);margin-top:4px;text-align:right}
 .exp-btn{font-family:var(--mono);font-size:10px;padding:4px 12px;border:.5px solid var(--b2);border-radius:var(--rsm);background:transparent;color:var(--t2);cursor:pointer}
 .exp-btn:hover{color:var(--tx);border-color:var(--b3)}
-.tester-upload-area{border:1.5px dashed var(--b2);border-radius:var(--rad);padding:40px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px}
+.tester-upload-area{border:1.5px dashed var(--b2);border-radius:var(--rad);padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:8px}
 .tester-upload-area:hover,.tester-upload-area.drag{border-color:var(--g);background:var(--gd)}
-.tester-upload-icon{font-size:36px;margin-bottom:8px;opacity:.5}
+.tester-upload-icon{font-size:28px;margin-bottom:6px;opacity:.5}
 .tester-upload-lbl{font-family:var(--mono);font-size:12px;color:var(--t3)}
 .tester-upload-sub{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:6px}
 .params-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:5px;margin-bottom:10px}
@@ -178,6 +178,33 @@ tr.grp:hover td{background:rgba(244,166,35,.08)}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--b3);border-radius:2px}
 input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
+
+/* ── TESTER MULTI-RUN ── */
+.run-list{display:flex;flex-direction:column;gap:0}
+.run-row{display:flex;align-items:center;gap:0;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .12s}
+.run-row:hover{background:rgba(255,255,255,.03)}
+.run-row.active{background:rgba(255,255,255,.05)}
+.run-color{width:3px;align-self:stretch;flex-shrink:0;border-radius:0}
+.run-cell{font-family:var(--mono);padding:7px 10px;font-size:11px;color:var(--t2);white-space:nowrap;border-right:.5px solid var(--b1)}
+.run-cell:last-child{border-right:none}
+.run-cell.pos{color:var(--g)}.run-cell.neg{color:var(--r)}.run-cell.amb{color:var(--a)}
+.run-header{display:flex;align-items:center;gap:0;background:var(--s2);border-bottom:.5px solid var(--b2)}
+.run-hcell{font-family:var(--mono);padding:5px 10px;font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;border-right:.5px solid var(--b1)}
+.run-hcell:last-child{border-right:none}
+.run-detail{background:var(--s2);border-bottom:.5px solid var(--b1);padding:12px 14px;display:none}
+.run-detail.open{display:block}
+.run-actions{display:flex;gap:6px;align-items:center;padding:8px 0 10px}
+.add-run-btn{font-family:var(--mono);font-size:11px;padding:6px 16px;border:.5px solid var(--g);border-radius:var(--rsm);color:var(--g);background:var(--gd);cursor:pointer;transition:all .15s}
+.add-run-btn:hover{background:rgba(32,199,122,.28)}
+.clear-runs-btn{font-family:var(--mono);font-size:10px;padding:5px 12px;border:.5px solid var(--b2);border-radius:var(--rsm);color:var(--t3);background:transparent;cursor:pointer}
+.clear-runs-btn:hover{color:var(--r);border-color:var(--r)}
+.run-count-badge{font-family:var(--mono);font-size:10px;color:var(--t3)}
+.param-diff{font-size:9px;color:var(--a);margin-left:4px}
+.tester-empty{text-align:center;padding:40px 20px;font-family:var(--mono);color:var(--t3)}
+.tester-empty-icon{font-size:32px;margin-bottom:10px;opacity:.4}
+.tester-empty-text{font-size:12px;margin-bottom:6px}
+.tester-empty-sub{font-size:10px}
+
 </style>
 </head>
 <body>
@@ -429,76 +456,102 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
 
 <div class="tab-pane" id="tab-tester">
 
-<!-- Tester upload bar (кнопка загрузки нового отчёта) -->
-<div class="upload-bar" id="tester-upload-bar" style="display:none">
-  <label class="upload-btn" for="tester-file-input-bar">⬆ Загрузить новый отчёт тестера</label>
-  <input type="file" id="tester-file-input-bar" accept=".htm,.html" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">
-  <div class="upload-info-text" id="tester-upload-info"></div>
-  <button type="button" class="clear-btn" onclick="resetTester()" style="margin-left:auto">↺ Сбросить</button>
+<!-- Tester toolbar -->
+<div class="upload-bar" id="tester-toolbar">
+  <label class="upload-btn" for="tester-add-input">⬆ Загрузить отчёт тестера</label>
+  <input type="file" id="tester-add-input" accept=".htm,.html" multiple style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">
+  <div class="upload-info-text" id="tester-toolbar-info">Можно загружать несколько отчётов для сравнения</div>
+  <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+    <span class="run-count-badge" id="tester-run-count"></span>
+    <button type="button" class="clear-runs-btn" onclick="clearAllRuns()">↺ Очистить все</button>
+  </div>
 </div>
 
-<div class="tester-upload-area" id="tester-drop-area">
-  <label for="tester-file-input" style="cursor:pointer;display:block">
-    <div class="tester-upload-icon">📈</div>
-    <div class="tester-upload-lbl">Загрузить отчёт тестера стратегий</div>
-    <div class="tester-upload-sub">Strategy Tester Report (.htm) из MetaTrader 4</div>
-  </label>
-  <input type="file" id="tester-file-input" accept=".htm,.html" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">
-</div>
-<div id="tester-content" style="display:none">
-  <div class="tester-header" id="tester-hdr"></div>
-  <div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);margin-bottom:10px">
-    <div class="kpi" id="tkpi-net"><div class="kpi-label">Чистый P&L</div><div class="kpi-val">—</div><div class="kpi-sub">—</div><div class="kpi-sem"></div></div>
-    <div class="kpi" id="tkpi-wr"><div class="kpi-label">Win Rate</div><div class="kpi-val">—</div><div class="kpi-sub">—</div><div class="kpi-sem"></div></div>
-    <div class="kpi" id="tkpi-pf"><div class="kpi-label">Профит-фактор</div><div class="kpi-val">—</div><div class="kpi-sub">—</div><div class="kpi-sem"></div></div>
-    <div class="kpi" id="tkpi-exp"><div class="kpi-label">Матожидание</div><div class="kpi-val">—</div><div class="kpi-sub">—</div><div class="kpi-sem"></div></div>
-    <div class="kpi" id="tkpi-dd"><div class="kpi-label">Макс. просадка</div><div class="kpi-val">—</div><div class="kpi-sub">—</div><div class="kpi-sem"></div></div>
-    <div class="kpi" id="tkpi-trades"><div class="kpi-label">Сделок</div><div class="kpi-val">—</div><div class="kpi-sub">—</div><div class="kpi-sem"></div></div>
+<!-- Empty state -->
+<div id="tester-empty-state" class="card" style="margin-bottom:8px">
+  <div class="tester-empty">
+    <div class="tester-empty-icon">📈</div>
+    <div class="tester-empty-text">Загрузите отчёты тестера стратегий</div>
+    <div class="tester-empty-sub">Strategy Tester Report (.htm) из MetaTrader 4 · можно несколько для сравнения</div>
   </div>
-  <div class="row r2" style="margin-bottom:10px">
-    <div class="card">
-      <div class="card-title"><span class="card-dot" style="background:var(--g)"></span>Баланс тестера
-        <div style="display:flex;gap:2px;margin-left:auto">
-          <button type="button" class="ctab on" onclick="switchTesterChart('balance',this)">Баланс</button>
-          <button type="button" class="ctab" onclick="switchTesterChart('dd',this)">Просадка</button>
-          <button type="button" class="ctab" onclick="switchTesterChart('daily',this)">По дням</button>
+</div>
+
+<!-- Multi-run content -->
+<div id="tester-runs-content" style="display:none">
+
+  <!-- Comparison chart -->
+  <div class="card" style="margin-bottom:8px">
+    <div class="card-title">
+      <span class="card-dot" style="background:var(--g)"></span>Сравнение балансов
+      <div style="display:flex;gap:2px;margin-left:auto">
+        <button type="button" class="ctab on" onclick="switchRunsChart('balance',this)">Баланс</button>
+        <button type="button" class="ctab" onclick="switchRunsChart('dd',this)">Просадка</button>
+        <button type="button" class="ctab" onclick="switchRunsChart('daily',this)">По дням</button>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:220px"><canvas id="tester-compare-chart"></canvas></div>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="card" style="margin-bottom:8px">
+    <div class="card-title">
+      <span class="card-dot" style="background:var(--pu)"></span>Сравнение запусков
+      <span style="font-family:var(--mono);font-size:9px;color:var(--t3);margin-left:6px">↓ Кликните на строку для деталей</span>
+    </div>
+    <div style="overflow-x:auto">
+      <div class="run-header" id="tester-run-header">
+        <div class="run-hcell" style="width:16px"></div>
+        <div class="run-hcell" style="min-width:140px">Запуск</div>
+        <div class="run-hcell" style="min-width:90px">Net P&L</div>
+        <div class="run-hcell" style="min-width:70px">WR%</div>
+        <div class="run-hcell" style="min-width:60px">PF</div>
+        <div class="run-hcell" style="min-width:80px">Матожид.</div>
+        <div class="run-hcell" style="min-width:80px">Макс DD</div>
+        <div class="run-hcell" style="min-width:55px">Сделок</div>
+        <div class="run-hcell" style="min-width:65px">Лучшая</div>
+        <div class="run-hcell" style="min-width:65px">Худшая</div>
+        <div class="run-hcell" style="min-width:60px">BUY WR</div>
+        <div class="run-hcell" style="min-width:65px">SELL WR</div>
+        <div class="run-hcell" style="flex:1">Ключевые параметры</div>
+        <div class="run-hcell" style="min-width:36px"></div>
+      </div>
+      <div class="run-list" id="tester-run-list"></div>
+    </div>
+  </div>
+
+  <!-- Detail panel (expanded run) -->
+  <div id="tester-detail-panel" style="display:none">
+    <div class="row r2" style="margin-bottom:8px">
+      <div class="card">
+        <div class="card-title"><span class="card-dot" style="background:var(--a)"></span>Параметры запуска</div>
+        <div class="params-grid" id="detail-params"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>
+        <div id="detail-side-cmp"></div>
+        <div style="margin-top:10px">
+          <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Часовая активность</div>
+          <div id="detail-hourly"></div>
         </div>
       </div>
-      <div class="chart-wrap" style="height:210px"><canvas id="tester-chart-eq"></canvas></div>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="card-dot" style="background:var(--a)"></span>Параметры запуска</div>
-      <div class="params-grid" id="tester-params" style="max-height:240px;overflow-y:auto"></div>
-    </div>
-  </div>
-  <div class="row r2" style="margin-bottom:10px">
-    <div class="card">
-      <div class="card-title"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>
-      <div id="tester-side-cmp"></div>
-      <div style="margin-top:12px">
-        <div class="card-title" style="margin-bottom:8px"><span class="card-dot" style="background:var(--r)"></span>Серии убытков</div>
-        <div id="tester-streaks"></div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="card-title"><span class="card-dot" style="background:var(--tx)"></span>Сделки выбранного запуска
+        <span id="detail-run-label" style="font-family:var(--mono);font-size:10px;color:var(--cy);margin-left:8px"></span>
+      </div>
+      <div class="tbl-wrap-lg">
+      <table><thead><tr>
+        <th>№</th><th>Открытие</th><th>Тип</th><th>Лот</th>
+        <th>Откр.</th><th>Закр.</th><th>SL</th><th>TP</th>
+        <th class="num">Прибыль</th><th class="num">R</th>
+        <th>Исход</th><th>Дл.(м)</th><th>Баланс</th>
+      </tr></thead><tbody id="detail-trades-tbody"></tbody></table>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title"><span class="card-dot" style="background:var(--a)"></span>Активность по часам</div>
-      <div id="tester-hourly"></div>
-    </div>
   </div>
-  <div class="card">
-    <div class="card-title"><span class="card-dot" style="background:var(--tx)"></span>Сделки тестера</div>
-    <div class="tbl-wrap-lg">
-    <table><thead><tr>
-      <th>№</th><th>Открытие</th><th>Тип</th><th>Лот</th>
-      <th>Откр.</th><th>Закр.</th><th>SL</th><th>TP</th>
-      <th class="num">Прибыль</th><th class="num">R</th>
-      <th>Исход</th><th>Дл.(м)</th><th>Баланс</th>
-    </tr></thead><tbody id="tester-trade-tbody"></tbody></table>
-    </div>
-  </div>
-</div>
-</div>
 
+</div><!-- /tester-runs-content -->
+</div><!-- /tab-tester -->
 <script>
 // ══════════════════════════════════════════════════════════════
 // DATA
@@ -1474,281 +1527,522 @@ function setPeriodLabel(){
 // ══════════════════════════════════════════════════════════════
 let testerData = null;
 
-// Setup tester drop area
-const testerArea = document.getElementById('tester-drop-area');
-if(testerArea){
-  testerArea.addEventListener('dragover', e=>{e.preventDefault();testerArea.classList.add('drag');});
-  testerArea.addEventListener('dragleave', ()=>testerArea.classList.remove('drag'));
-  testerArea.addEventListener('drop', e=>{e.preventDefault();testerArea.classList.remove('drag');const f=e.dataTransfer.files[0];if(f)loadTesterFile(f);});
-}
-document.getElementById('tester-file-input')?.addEventListener('change', function(e){
-  const f=e.target.files[0]; if(f) loadTesterFile(f); this.value='';
-});
+// ══════════════════════════════════════════════════════════════
+//  TESTER HTML PARSER
+// ══════════════════════════════════════════════════════════════
+function parseTesterHtm(html) {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const tables = doc.querySelectorAll('table');
+  if (tables.length < 2) return null;
 
-function loadTesterFile(file){
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    try {
-      const td=parseTesterHtm(ev.target.result);
-      if(!td){alert('Не удалось распознать формат тестера MT4');return;}
-      testerData=td;
-      renderTesterTab(td);
-      document.getElementById('tester-drop-area').style.display='none';
-      document.getElementById('tester-content').style.display='block';
-    } catch(err){alert('Ошибка парсинга: '+err.message);}
-  };
-  reader.readAsText(file,'cp1251');
-}
-
-function parseTesterHtm(html){
-  const doc=new DOMParser().parseFromString(html,'text/html');
-  const tables=doc.querySelectorAll('table');
-  if(tables.length<2)return null;
-
-  // Summary table
-  const summary={};
-  let paramsRaw='';
-  for(const row of tables[0].querySelectorAll('tr')){
-    const cells=[...row.querySelectorAll('td')];
-    const txts=cells.map(c=>c.textContent.trim());
-    for(let i=0;i<txts.length-1;i+=2){
-      if(txts[i]&&txts[i+1]) summary[txts[i]]=txts[i+1];
+  // Summary + params
+  const summary = {};
+  let paramsRaw = '';
+  for (const row of tables[0].querySelectorAll('tr')) {
+    const cells = [...row.querySelectorAll('td')];
+    const txts  = cells.map(c => c.textContent.trim());
+    for (let i = 0; i < txts.length - 1; i += 2) {
+      if (txts[i] && txts[i+1] && txts[i].length < 80) summary[txts[i]] = txts[i+1];
     }
-    // Params cell is usually very long
-    for(const c of cells){
-      const t=c.textContent.trim();
-      if(t.includes('H1=')&&t.length>200) paramsRaw=t;
+    for (const cell of cells) {
+      const t = cell.textContent.trim();
+      if (t.length > 200) paramsRaw = t;
     }
   }
 
-  // Parse key params
-  const params={};
-  const KEY_PARAM_MAP={
-    'РазмерЛота':'Лот','ПроцентРиска':'% риска','МаксимальныйSL_Пункты':'Макс SL (пп)',
-    'МножительSL':'Множитель SL','МножительТП':'Множитель TP','РежимТрейлинга':'Трейлинг',
+  // Parse known params
+  const KEY_MAP = {
+    'РазмерЛота':'Лот','ПроцентРиска':'% риска',
+    'МаксимальныйSL_Пункты':'Макс SL (пп)','МаксимальныйСпред':'Макс спред',
+    'МножительSL':'Множитель SL','МножительТП':'Множитель TP',
+    'РежимТрейлинга':'Трейлинг','РасстояниеТрейлинга':'Дист. трейлинга',
     'РежимТППродвинутый':'Частич. закрытие','TP1_Процент':'TP1 %','TP2_Процент':'TP2 %',
     'МаксУбытковПодряд':'Макс серия убытков','МаксСделокВДень':'Макс сд/день',
-    'ВключитьHTFФильтр':'HTF фильтр','ВыбранныйТаймфрейм':'TF','НачалоТорговли_Час':'Начало',
-    'КонецТорговли_Час':'Конец','МаксПроскальзывание':'Проскальзывание',
+    'ВключитьHTFФильтр':'HTF фильтр','ВыбранныйТаймфрейм':'Таймфрейм',
+    'НачалоТорговли_Час':'Начало','КонецТорговли_Час':'Конец',
     'ФильтрПоТренду':'Фильтр тренда','РежимВремени':'Режим времени',
-    'МаксимальныйСпред':'Макс спред','ПериодСвинга':'Период свинга',
-    'МножительОбъёма':'Множитель объёма','РежимБезубытка':'Безубыток',
+    'РежимБезубытка':'Безубыток','МаксПросадка':'Макс просадка %',
+    'МаксПроскальзывание':'Проскальзывание','МинимальныйRR':'Мин RR',
+    'ПериодСвинга':'Период свинга','МножительATR_Близость':'Мн. ATR',
   };
-  for(const [key,label] of Object.entries(KEY_PARAM_MAP)){
-    const m=paramsRaw.match(new RegExp(key+'=([^;\\n\\\\]+)'));
-    if(m) params[label]=m[1].trim();
+  const params = {};
+  for (const [key, label] of Object.entries(KEY_MAP)) {
+    const rx = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '=([^;\\n]+?)(?:;|\\n|$)');
+    const m  = paramsRaw.match(rx);
+    if (m) params[label] = m[1].trim().replace(/"/g,'');
   }
-
-  // Trade rows
-  const trades=[];
-  const openMap={};
-  for(const row of tables[1].querySelectorAll('tr')){
-    const cells=[...row.querySelectorAll('td')];
-    if(cells.length<8)continue;
-    const vals=cells.map(c=>c.textContent.trim());
-    if(!vals[0].match(/^\d+$/))continue;
-    const typ=vals[2].toLowerCase(),order=vals[3];
-    if(typ==='buy'||typ==='sell'){
-      openMap[order]={order,open_time:vals[1],type:typ.toUpperCase(),vol:+vals[4]||0,open_p:+vals[5]||0,sl:+vals[6]||0,tp:+vals[7]||0};
-    } else if(typ==='close'&&openMap[order]){
-      const o=openMap[order]; delete openMap[order];
-      const profit=+vals[8]||0,balance=+vals[9]||0;
-      const close_p=+vals[5]||0;
-      const od=new Date(o.open_time.replace(/\./g,'-').replace(' ','T'));
-      const cd=new Date(vals[1].replace(/\./g,'-').replace(' ','T'));
-      const dur=Math.round((cd-od)/60000*10)/10;
-      const rm=calcRMult(o.open_p,o.sl,close_p,profit);
-      const outcome=inferOutcome(null,o.sl,o.tp,close_p,profit);
-      trades.push({order,open_time:o.open_time,close_time:vals[1],type:o.type,vol:o.vol,
-        open_p:o.open_p,close_p,sl:o.sl,tp:o.tp,profit,balance,dur,r_mult:rm,outcome,
-        date:o.open_time.slice(0,10),hour:+o.open_time.slice(11,13),dow:od.getDay?((od.getDay()+6)%7):0});
+  // Fallback: parse any KEY=VALUE pairs
+  if (Object.keys(params).length === 0) {
+    const pairs = paramsRaw.matchAll(/([A-Za-zА-ЯЁа-яё_]\w*)=([^;,\n]+)/g);
+    for (const [, k, v] of pairs) {
+      if (v.trim() && !params[k]) params[k] = v.trim();
     }
   }
 
-  // Compute stats
-  const profits=trades.map(t=>t.profit);
-  const wins=profits.filter(p=>p>0),losses=profits.filter(p=>p<0);
-  const net=profits.reduce((a,b)=>a+b,0)||0;
-  const gw=wins.reduce((a,b)=>a+b,0)||0,gl=Math.abs(losses.reduce((a,b)=>a+b,0)||0);
-  let peak=0,maxdd=0;
-  trades.forEach(t=>{if(t.balance>peak)peak=t.balance;const dd=peak-t.balance;if(dd>maxdd)maxdd=dd;});
-  const deposit=+(summary['Начальный депозит']||1000);
-  const daily={};
-  trades.forEach(t=>{daily[t.date]=(daily[t.date]||0)+t.profit;});
+  // Header info
+  const depStr = (summary['Начальный депозит'] || '').replace(/[^\d.]/g,'');
+  const deposit = parseFloat(depStr) || 1000;
+  const header = {
+    symbol:  (summary['Символ'] || 'XAUUSD').split('(')[0].trim(),
+    period:  (summary['Период'] || '').slice(0, 60),
+    deposit: deposit.toFixed(2),
+    spread:  summary['Спред'] || '',
+    bars:    summary['Баров в истории'] || '',
+    ticks:   summary['Смоделировано тиков'] || '',
+  };
 
-  return{
-    header:{
-      symbol:summary['Символ']||'XAUUSD',
-      period:summary['Период']||(Object.values(summary).find(v=>v.includes('Минут'))||''),
-      deposit:deposit.toFixed(2),spread:summary['Спред']||'',
-      bars:summary['Баров в истории']||'',ticks:summary['Смоделировано тиков']||'',
-    },
-    params,
-    summary:{
-      net_pnl:r2(net),gross_win:r2(gw),gross_loss:r2(gl),
-      win_rate:r2(wins.length/(profits.length||1)*100),
-      profit_factor:r2(gl?gw/gl:gw?99.9:0),
-      expectancy:r2(net/(profits.length||1)),
-      total_trades:profits.length,wins:wins.length,losses:losses.length,
-      max_dd:r2(maxdd),max_dd_pct:r2(maxdd/deposit*100),
-      avg_win:r2(mean0(wins)),avg_loss:r2(mean0(losses)),
-      best_trade:r2(Math.max(0,...profits)),worst_trade:r2(Math.min(0,...profits)),
-      final_balance:r2(trades.length?trades[trades.length-1].balance:deposit),
+  // Parse trades
+  function calcRM(op, sl, cp, profit) {
+    if (!sl || !op) return 0;
+    const risk = Math.abs(op - sl), rew = Math.abs(cp - op);
+    return Math.round((rew/risk || 0) * (profit >= 0 ? 1 : -1) * 100) / 100;
+  }
+  function inferOut(sl, tp, cp, profit) {
+    if (tp && Math.abs(cp - tp) <= 0.25) return 'TP';
+    if (sl && Math.abs(cp - sl) <= 0.25) return 'SL';
+    if (Math.abs(profit) < 0.02) return 'BREAKEVEN';
+    return profit > 0 ? 'TP' : 'SL';
+  }
+
+  const trades = [];
+  const openMap = {};
+  for (const row of tables[1].querySelectorAll('tr')) {
+    const cells = [...row.querySelectorAll('td')];
+    if (cells.length < 8) continue;
+    const vals = cells.map(c => c.textContent.trim());
+    if (!/^\d+$/.test(vals[0])) continue;
+    const typ = vals[2].toLowerCase(), order = vals[3];
+    if (typ === 'buy' || typ === 'sell') {
+      openMap[order] = {
+        order, open_time: vals[1], type: typ.toUpperCase(),
+        vol:  parseFloat(vals[4]) || 0.01,
+        open_p: parseFloat(vals[5]) || 0,
+        sl:     parseFloat(vals[6]) || 0,
+        tp:     parseFloat(vals[7]) || 0,
+      };
+    } else if (typ === 'close' && openMap[order]) {
+      const o = openMap[order]; delete openMap[order];
+      try {
+        const profit  = parseFloat(vals[8]) || 0;
+        const balance = parseFloat(vals[9]) || 0;
+        const close_p = parseFloat(vals[5]) || 0;
+        const od = new Date(o.open_time.replace(/\./g,'-').replace(' ','T'));
+        const cd = new Date(vals[1].replace(/\./g,'-').replace(' ','T'));
+        const dur = Math.round((cd - od) / 60000 * 10) / 10;
+        trades.push({
+          order, open_time: o.open_time, close_time: vals[1],
+          type: o.type, vol: o.vol,
+          open_p: o.open_p, close_p, sl: o.sl, tp: o.tp,
+          profit, balance, dur,
+          r_mult:  calcRM(o.open_p, o.sl, close_p, profit),
+          outcome: inferOut(o.sl, o.tp, close_p, profit),
+          date: o.open_time.slice(0,10),
+          hour: parseInt(o.open_time.slice(11,13)) || 0,
+          dow:  (od.getDay() + 6) % 7,
+        });
+      } catch(e) {}
+    }
+  }
+
+  if (!trades.length) return null;
+
+  // Compute summary stats
+  const profits = trades.map(t => t.profit);
+  const wins    = profits.filter(p => p > 0);
+  const losses  = profits.filter(p => p < 0);
+  const net     = profits.reduce((a,b) => a+b, 0);
+  const gw      = wins.reduce((a,b) => a+b, 0) || 0;
+  const gl      = Math.abs(losses.reduce((a,b) => a+b, 0) || 0);
+  const pf      = gl ? gw/gl : gw ? 99.9 : 0;
+
+  let peak = deposit, maxdd = 0;
+  trades.forEach(t => {
+    if (t.balance > peak) peak = t.balance;
+    const dd = peak - t.balance;
+    if (dd > maxdd) maxdd = dd;
+  });
+
+  const daily = {};
+  trades.forEach(t => { daily[t.date] = (daily[t.date]||0) + t.profit; });
+
+  const hourly = {};
+  trades.forEach(t => {
+    const h = String(t.hour);
+    if (!hourly[h]) hourly[h] = {net:0, n:0};
+    hourly[h].net += t.profit; hourly[h].n++;
+  });
+
+  function ss(lst) {
+    if (!lst.length) return {n:0, net:0, wr:0, avg_win:0, avg_loss:0};
+    const ps = lst.map(t => t.profit);
+    const ws = ps.filter(p => p>0), ls = ps.filter(p => p<0);
+    const mean = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : 0;
+    return {n:lst.length, net:Math.round(ps.reduce((a,b)=>a+b,0)*100)/100,
+      wr: Math.round(ws.length/ps.length*100*10)/10,
+      avg_win: Math.round(mean(ws)*100)/100, avg_loss: Math.round(mean(ls)*100)/100};
+  }
+
+  let maxLS = 0, curLS = 0;
+  profits.forEach(p => { if(p<0){curLS++;maxLS=Math.max(maxLS,curLS);}else curLS=0; });
+
+  const r2 = v => Math.round(v*100)/100;
+  return {
+    header, params,
+    summary: {
+      net_pnl:        r2(net), gross_win: r2(gw), gross_loss: r2(gl),
+      win_rate:       r2(wins.length / profits.length * 100),
+      profit_factor:  r2(Math.min(pf, 99.9)),
+      expectancy:     r2(net / profits.length),
+      total_trades:   profits.length, wins: wins.length, losses: losses.length,
+      max_dd:         r2(maxdd), max_dd_pct: r2(maxdd / deposit * 100),
+      avg_win:        r2(wins.length ? gw/wins.length : 0),
+      avg_loss:       r2(losses.length ? -gl/losses.length : 0),
+      best_trade:     r2(Math.max(0, ...profits)),
+      worst_trade:    r2(Math.min(0, ...profits)),
+      final_balance:  r2(trades[trades.length-1]?.balance || deposit),
     },
     trades,
-    equity_curve:trades.map(t=>[t.close_time,t.balance]),
-    dd_curve:trades.map(t=>{if(t.balance>peak)peak=t.balance;return[t.close_time,r2((peak-t.balance)*-1)];}),
-    daily:Object.entries(daily).sort().map(([d,v])=>[d,r2(v)]),
-    buy_stats:sideSt(trades.filter(t=>t.type==='BUY')),
-    sell_stats:sideSt(trades.filter(t=>t.type==='SELL')),
-    hourly:trades.reduce((h,t)=>{h[t.hour]=h[t.hour]||{net:0,n:0};h[t.hour].net+=t.profit;h[t.hour].n++;return h;},{}),
-    max_loss_streak:(()=>{let ml=0,cl=0;for(const p of profits){if(p<0){cl++;ml=Math.max(ml,cl);}else cl=0;}return ml;})(),
+    equity_curve: trades.map(t => [t.close_time, t.balance]),
+    daily:        Object.entries(daily).sort().map(([d,v]) => [d, r2(v)]),
+    hourly,
+    buy_stats:  ss(trades.filter(t => t.type === 'BUY')),
+    sell_stats: ss(trades.filter(t => t.type === 'SELL')),
+    max_loss_streak: maxLS,
   };
 }
-function sideSt(lst){
-  if(!lst.length)return{n:0};
-  const ps=lst.map(t=>t.profit);
-  const ws=ps.filter(p=>p>0),ls=ps.filter(p=>p<0);
-  return{n:lst.length,net:r2(ps.reduce((a,b)=>a+b,0)),wr:r2(ws.length/ps.length*100),
-    avg_win:r2(mean0(ws)),avg_loss:r2(mean0(ls))};
-}
 
-function renderTesterTab(td){
-  // Header
-  document.getElementById('tester-hdr').innerHTML=[
-    {l:'Символ',v:td.header.symbol},{l:'Период',v:td.header.period.slice(0,40)},
-    {l:'Депозит',v:'$'+td.header.deposit},{l:'Спред',v:td.header.spread||'—'},
-    {l:'Баров',v:td.header.bars},{l:'Тиков',v:td.header.ticks},
-    {l:'Итоговый баланс',v:'$'+td.summary.final_balance},
-  ].map(({l,v})=>'<div class="tester-hdr-item"><div class="tester-hdr-lbl">'+l+'</div><div class="tester-hdr-val">'+v+'</div></div>').join('');
 
-  // KPI
-  const s=td.summary;
-  function setTKPI(id,val,sub,color){
-    const el=document.getElementById(id);if(!el)return;
-    el.querySelector('.kpi-val').textContent=val;
-    el.querySelector('.kpi-val').style.color={'g':'#20c77a','r':'#f0604a','a':'#f4a623','bl':'#4a9ff5'}[color]||'var(--tx)';
-    el.querySelector('.kpi-sub').textContent=sub||'';
-    const sem=el.querySelector('.kpi-sem');
-    if(sem)sem.style.background={'g':'#20c77a','r':'#f0604a','a':'#f4a623','bl':'#4a9ff5'}[color]||'transparent';
-  }
-  setTKPI('tkpi-net',fmtP(s.net_pnl),s.total_trades+' сделок',s.net_pnl>=0?'g':'r');
-  setTKPI('tkpi-wr',s.win_rate+'%',s.wins+' побед / '+s.losses+' убытков',s.win_rate>=60?'g':s.win_rate>=50?'a':'r');
-  setTKPI('tkpi-pf',s.profit_factor.toFixed(2),'Вал. выигрыш: '+fmtP(s.gross_win),s.profit_factor>=1.5?'g':s.profit_factor>=1?'a':'r');
-  setTKPI('tkpi-exp',fmtP(s.expectancy),'матожидание/сд',s.expectancy>=0?'g':'r');
-  setTKPI('tkpi-dd','$'+s.max_dd,s.max_dd_pct.toFixed(1)+'% от депозита',s.max_dd_pct<20?'g':s.max_dd_pct<50?'a':'r');
-  setTKPI('tkpi-trades',String(s.total_trades),'ср. '+fmtP(s.avg_win)+' / '+fmtP(s.avg_loss),'bl');
+// ══════════════════════════════════════════════════════════════
+//  TESTER — MULTI-RUN COMPARISON
+// ══════════════════════════════════════════════════════════════
+let RUNS = [];           // [{id, name, color, data}]
+let activeRunId = null;  // currently expanded run
+let runsChartMode = 'balance';
+let runsChart = null;
 
-  // Params
-  document.getElementById('tester-params').innerHTML=Object.entries(td.params)
-    .map(([k,v])=>'<div class="param-row"><span class="param-key">'+k+'</span><span class="param-val">'+v+'</span></div>').join('');
+const RUN_COLORS = ['#20c77a','#4a9ff5','#f4a623','#9b8ff7','#f0604a',
+                    '#2ecfcf','#ff6b9d','#ff9966','#a0c4ff','#b0b8cc'];
 
-  // Equity chart
-  if(testerChartEq) testerChartEq.destroy();
-  const ctx2=document.getElementById('tester-chart-eq').getContext('2d');
-  testerChartEq=new Chart(ctx2,{
-    type:'line',
-    data:{datasets:[{data:td.equity_curve.map(([x,y])=>({x,y})),borderColor:'#20c77a',
-      backgroundColor:(()=>{const g=ctx2.createLinearGradient(0,0,0,200);g.addColorStop(0,'rgba(32,199,122,.2)');g.addColorStop(1,'rgba(32,199,122,0)');return g;})(),
-      fill:true,borderWidth:1.8,label:'Баланс'}]},
-    options:{responsive:true,maintainAspectRatio:false,animation:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toFixed(2)}}},
-      scales:{x:{display:false},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{callback:v=>'$'+v.toFixed(0)}}},
-      elements:{point:{radius:0,hoverRadius:4},line:{tension:.2}}}
-  });
-  window._testerData=td;
-
-  // Side comparison
-  const B=td.buy_stats,S=td.sell_stats;
-  document.getElementById('tester-side-cmp').innerHTML=B.n&&S.n?
-    '<table><thead><tr><th>Метрика</th><th style="color:var(--bl)">BUY ('+B.n+')</th><th style="color:var(--r)">SELL ('+S.n+')</th></tr></thead><tbody>'
-    +[['Net',fmtP(B.net),fmtP(S.net),B.net,S.net],['WR%',B.wr+'%',S.wr+'%',B.wr,S.wr],
-      ['Ср.выигрыш',fmtP(B.avg_win),fmtP(S.avg_win),B.avg_win,S.avg_win],
-      ['Ср.убыток',fmtP(B.avg_loss),fmtP(S.avg_loss),B.avg_loss,S.avg_loss]]
-      .map(([l,va,vb,na,nb])=>'<tr><td class="muted">'+l+'</td><td class="num" style="color:'+(na>=nb?'#20c77a':'#b8c0d0')+'">'+va+'</td><td class="num" style="color:'+(nb>na?'#20c77a':'#b8c0d0')+'">'+vb+'</td></tr>').join('')
-    +'</tbody></table>':'<span class="muted" style="font-family:var(--mono);font-size:11px">Нет данных</span>';
-
-  // Streaks
-  document.getElementById('tester-streaks').innerHTML=
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'
-    +'<div class="sess-card"><div class="sess-name">Макс. серия убытков</div><div class="sess-val red">'+td.max_loss_streak+'</div><div class="sess-sub">подряд</div></div>'
-    +'<div class="sess-card"><div class="sess-name">Худшая сделка</div><div class="sess-val red">'+fmtP(s.worst_trade)+'</div><div class="sess-sub">максимальный убыток</div></div>'
-    +'</div>';
-
-  // Hourly heatmap
-  const hd=td.hourly,maxH=Math.max(...Object.values(hd).map(v=>Math.abs(v.net)),1);
-  let hhtml='<div style="display:grid;grid-template-columns:repeat(24,1fr);gap:2px">';
-  for(let h=0;h<24;h++){
-    const v=hd[h]||{net:0,n:0},int=Math.abs(v.net)/maxH;
-    const bg=v.net>=0?'rgba(32,199,122,'+(0.08+int*.7)+')':'rgba(240,96,74,'+(0.08+int*.7)+')';
-    hhtml+='<div class="hm-cell" style="background:'+bg+';height:36px;flex-direction:column;gap:1px" title="'+String(h).padStart(2,'0')+':00 | $'+v.net.toFixed(2)+' | '+v.n+' сд"><span style="font-size:8px;opacity:.7">'+String(h).padStart(2,'0')+'</span><span style="font-size:7px;opacity:.6">'+(v.n||'')+'</span></div>';
-  }
-  hhtml+='</div>';
-  document.getElementById('tester-hourly').innerHTML=hhtml;
-
-  // Trade list
-  document.getElementById('tester-trade-tbody').innerHTML=td.trades.map((t,i)=>{
-    const pc=t.profit>=0?'#20c77a':'#f0604a';
-    const oc=t.outcome==='TP'?'tg':'tr';
-    return'<tr><td style="color:var(--t3)">'+(i+1)+'</td><td style="color:var(--t3)">'+t.open_time+'</td>'
-      +'<td><span class="tag '+(t.type==='BUY'?'tb':'tr')+'">'+t.type+'</span></td>'
-      +'<td>'+t.vol+'</td><td>'+t.open_p+'</td><td>'+t.close_p+'</td>'
-      +'<td style="color:var(--t3)">'+(t.sl||'—')+'</td><td style="color:var(--t3)">'+(t.tp||'—')+'</td>'
-      +'<td class="num" style="color:'+pc+';font-weight:500">'+fmtP(t.profit)+'</td>'
-      +'<td class="num" style="color:'+(t.r_mult>0?'#20c77a':'#f0604a')+'">'+(t.r_mult>0?'+':'')+t.r_mult+'</td>'
-      +'<td><span class="tag '+oc+'">'+t.outcome+'</span></td>'
-      +'<td style="color:var(--t3)">'+t.dur+'</td>'
-      +'<td style="font-family:var(--mono);font-size:10px;color:var(--t2)">$'+t.balance+'</td></tr>';
-  }).join('');
-}
-
-function switchTesterChart(mode,el){
-  document.querySelectorAll('#tab-tester .ctab').forEach(t=>t.classList.remove('on'));
-  el.classList.add('on');
-  if(!testerChartEq||!window._testerData)return;
-  const td=window._testerData;
-  let datasets;
-  const ctx2=document.getElementById('tester-chart-eq').getContext('2d');
-  if(mode==='balance'){
-    datasets=[{data:td.equity_curve.map(([x,y])=>({x,y})),borderColor:'#20c77a',
-      backgroundColor:(()=>{const g=ctx2.createLinearGradient(0,0,0,200);g.addColorStop(0,'rgba(32,199,122,.2)');g.addColorStop(1,'rgba(32,199,122,0)');return g;})(),
-      fill:true,borderWidth:1.8}];
-  } else if(mode==='dd'){
-    let pk=0;
-    const ddData=td.equity_curve.map(([x,y])=>{if(y>pk)pk=y;return{x,y:r2((pk-y)*-1)};});
-    datasets=[{data:ddData,borderColor:'#f0604a',
-      backgroundColor:(()=>{const g=ctx2.createLinearGradient(0,0,0,200);g.addColorStop(0,'rgba(240,96,74,.15)');g.addColorStop(1,'rgba(240,96,74,0)');return g;})(),
-      fill:true,borderWidth:1.8}];
-  } else {
-    datasets=[{data:td.daily.map(([x,y])=>({x,y})),
-      backgroundColor:td.daily.map(([,y])=>y>=0?'rgba(32,199,122,.25)':'rgba(240,96,74,.25)'),
-      borderColor:td.daily.map(([,y])=>y>=0?'#20c77a':'#f0604a'),borderWidth:1,type:'bar'}];
-  }
-  testerChartEq.data={datasets};
-  testerChartEq.update();
-}
-
-// Wire second file input (upload bar)
+// File input
 document.addEventListener('DOMContentLoaded', function(){
-  const bar = document.getElementById('tester-file-input-bar');
-  if(bar) bar.addEventListener('change', function(e){
-    const f=e.target.files[0]; if(f) loadTesterFile(f); this.value='';
+  const inp = document.getElementById('tester-add-input');
+  if(inp) inp.addEventListener('change', function(e){
+    const files = [...e.target.files];
+    files.forEach(f => loadRunFile(f));
+    this.value = '';
   });
+  // Init empty runs chart
+  const ctx = document.getElementById('tester-compare-chart');
+  if(ctx) {
+    runsChart = new Chart(ctx.getContext('2d'), {
+      type: 'line',
+      data: {datasets: []},
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        interaction: {mode: 'index', intersect: false},
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {boxWidth: 10, padding: 12, font: {size: 10},
+                     color: '#b8c0d0', usePointStyle: true}
+          },
+          tooltip: {
+            callbacks: {
+              title: c => c[0]?.raw?.x || '',
+              label: c => ' ' + c.dataset.label + ': $' + c.parsed.y.toFixed(2)
+            }
+          }
+        },
+        scales: {
+          x: {display: false},
+          y: {grid: {color: 'rgba(255,255,255,.04)'},
+              ticks: {callback: v => '$' + v.toFixed(0)}}
+        },
+        elements: {point: {radius: 0, hoverRadius: 4}, line: {tension: .2, borderWidth: 1.8}}
+      }
+    });
+  }
 });
 
-function resetTester(){
-  testerData=null;
-  document.getElementById('tester-drop-area').style.display='';
-  document.getElementById('tester-content').style.display='none';
-  document.getElementById('tester-upload-bar').style.display='none';
-  const info=document.getElementById('tester-upload-info');
-  if(info) info.textContent='';
+function loadRunFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const td = parseTesterHtm(ev.target.result);
+      if(!td || !td.trades.length) {
+        alert('Не удалось распознать отчёт тестера: ' + file.name);
+        return;
+      }
+      const id    = Date.now() + Math.random();
+      const color = RUN_COLORS[RUNS.length % RUN_COLORS.length];
+      const name  = file.name.replace(/\.htm[l]?$/i, '').slice(0, 40);
+      RUNS.push({id, name, color, data: td});
+      renderRunsUI();
+    } catch(err) {
+      alert('Ошибка парсинга ' + file.name + ': ' + err.message);
+    }
+  };
+  reader.readAsText(file, 'cp1251');
 }
 
-// Preload tester snapshot
+function clearAllRuns() {
+  if(RUNS.length && !confirm('Удалить все запуски?')) return;
+  RUNS = []; activeRunId = null;
+  renderRunsUI();
+}
+
+function removeRun(id, ev) {
+  ev.stopPropagation();
+  RUNS = RUNS.filter(r => r.id !== id);
+  if(activeRunId === id) activeRunId = null;
+  renderRunsUI();
+}
+
+function toggleRunDetail(id) {
+  activeRunId = activeRunId === id ? null : id;
+  renderRunsUI();
+}
+
+function switchRunsChart(mode, el) {
+  runsChartMode = mode;
+  document.querySelectorAll('#tester-runs-content .ctab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  updateRunsChart();
+}
+
+// ── RENDER ALL ──────────────────────────────────────────────────
+function renderRunsUI() {
+  const hasRuns = RUNS.length > 0;
+  document.getElementById('tester-empty-state').style.display   = hasRuns ? 'none' : '';
+  document.getElementById('tester-runs-content').style.display  = hasRuns ? '' : 'none';
+  if(!hasRuns) {
+    document.getElementById('tester-run-count').textContent = '';
+    return;
+  }
+  document.getElementById('tester-run-count').textContent = RUNS.length + ' ' +
+    (RUNS.length === 1 ? 'запуск' : RUNS.length < 5 ? 'запуска' : 'запусков');
+
+  // Find best run per metric for highlighting
+  const best = {
+    net:    Math.max(...RUNS.map(r => r.data.summary.net_pnl)),
+    wr:     Math.max(...RUNS.map(r => r.data.summary.win_rate)),
+    pf:     Math.max(...RUNS.map(r => r.data.summary.profit_factor)),
+    exp:    Math.max(...RUNS.map(r => r.data.summary.expectancy)),
+    dd:     Math.min(...RUNS.map(r => r.data.summary.max_dd)),
+    trades: Math.max(...RUNS.map(r => r.data.summary.total_trades)),
+  };
+
+  // Build diff params (params that differ across runs)
+  const allParamKeys = [...new Set(RUNS.flatMap(r => Object.keys(r.data.params)))];
+  const diffParams = allParamKeys.filter(k => {
+    const vals = new Set(RUNS.map(r => r.data.params[k] || ''));
+    return vals.size > 1;
+  });
+
+  // Render rows
+  const listEl = document.getElementById('tester-run-list');
+  listEl.innerHTML = RUNS.map(({id, name, color, data: td}) => {
+    const s = td.summary;
+    const isActive = activeRunId === id;
+    const isBestNet = s.net_pnl === best.net;
+    const isBestDD  = s.max_dd  === best.dd;
+    const isBestPF  = s.profit_factor === best.pf;
+
+    const netCls = s.net_pnl > 0 ? 'pos' : s.net_pnl < 0 ? 'neg' : '';
+    const ddCls  = s.max_dd_pct < 10 ? 'pos' : s.max_dd_pct < 30 ? 'amb' : 'neg';
+    const pfCls  = s.profit_factor >= 1.5 ? 'pos' : s.profit_factor >= 1 ? 'amb' : 'neg';
+    const wrCls  = s.win_rate >= 60 ? 'pos' : s.win_rate >= 50 ? 'amb' : 'neg';
+    const expCls = s.expectancy >= 0 ? 'pos' : 'neg';
+
+    // Key differing params
+    const diffStr = diffParams.slice(0,4).map(k => {
+      const v = td.params[k];
+      return v ? k + '=' + v : '';
+    }).filter(Boolean).join(' · ');
+
+    const bestMark = (isBest) => isBest ? ' ★' : '';
+
+    const detailHtml = isActive ? `
+      <div class="run-detail open" onclick="event.stopPropagation()">
+        ${renderRunDetail(id)}
+      </div>` : '';
+
+    return `<div>
+      <div class="run-row ${isActive ? 'active' : ''}" onclick="toggleRunDetail(${id})">
+        <div class="run-color" style="background:${color}"></div>
+        <div class="run-cell" style="min-width:140px;font-weight:500;color:var(--tx)">${name}</div>
+        <div class="run-cell ${netCls}" style="min-width:90px">${s.net_pnl >= 0 ? '+$' : '-$'}${Math.abs(s.net_pnl).toFixed(2)}${bestMark(isBestNet)}</div>
+        <div class="run-cell ${wrCls}" style="min-width:70px">${s.win_rate}%</div>
+        <div class="run-cell ${pfCls}" style="min-width:60px">${s.profit_factor.toFixed(2)}${bestMark(isBestPF)}</div>
+        <div class="run-cell ${expCls}" style="min-width:80px">${s.expectancy >= 0 ? '+$' : '-$'}${Math.abs(s.expectancy).toFixed(2)}</div>
+        <div class="run-cell ${ddCls}" style="min-width:80px">−$${s.max_dd.toFixed(2)} (${s.max_dd_pct.toFixed(1)}%)${bestMark(isBestDD)}</div>
+        <div class="run-cell" style="min-width:55px">${s.total_trades}</div>
+        <div class="run-cell pos" style="min-width:65px">+$${s.best_trade.toFixed(2)}</div>
+        <div class="run-cell neg" style="min-width:65px">−$${Math.abs(s.worst_trade).toFixed(2)}</div>
+        <div class="run-cell ${td.buy_stats.wr >= 50 ? 'pos' : 'neg'}" style="min-width:60px">${td.buy_stats.wr || 0}%</div>
+        <div class="run-cell ${td.sell_stats.wr >= 50 ? 'pos' : 'neg'}" style="min-width:65px">${td.sell_stats.wr || 0}%</div>
+        <div class="run-cell" style="flex:1;font-size:9px;color:var(--t3)">${diffStr || '—'}</div>
+        <div class="run-cell" style="min-width:36px;text-align:center">
+          <button type="button" onclick="removeRun(${id},event)"
+            style="background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:13px;padding:2px 4px">✕</button>
+        </div>
+      </div>
+      ${detailHtml}
+    </div>`;
+  }).join('');
+
+  updateRunsChart();
+
+  // Detail panel visibility
+  document.getElementById('tester-detail-panel').style.display = activeRunId ? '' : 'none';
+}
+
+function renderRunDetail(id) {
+  const run = RUNS.find(r => r.id === id);
+  if(!run) return '';
+  const td = run.data;
+  const s  = td.summary;
+
+  // Params grid
+  const paramsHtml = Object.entries(td.params).map(([k,v]) =>
+    `<div class="param-row"><span class="param-key">${k}</span><span class="param-val">${v}</span></div>`
+  ).join('');
+
+  // Side comparison
+  const B = td.buy_stats, S = td.sell_stats;
+  const sideHtml = B.n && S.n ? `
+    <table><thead><tr><th>Метрика</th><th style="color:var(--bl)">BUY (${B.n})</th><th style="color:var(--r)">SELL (${S.n})</th></tr></thead>
+    <tbody>
+      ${[['Net', (B.net>=0?'+$':'-$')+Math.abs(B.net).toFixed(2), (S.net>=0?'+$':'-$')+Math.abs(S.net).toFixed(2), B.net, S.net],
+         ['WR%', B.wr+'%', S.wr+'%', B.wr, S.wr],
+         ['Ср.выигрыш', '+$'+B.avg_win.toFixed(2), '+$'+S.avg_win.toFixed(2), B.avg_win, S.avg_win],
+         ['Ср.убыток', '-$'+Math.abs(B.avg_loss).toFixed(2), '-$'+Math.abs(S.avg_loss).toFixed(2), B.avg_loss, S.avg_loss]]
+        .map(([l,va,vb,na,nb]) => `<tr><td class="muted">${l}</td>
+          <td class="num" style="color:${na>=nb?'#20c77a':'#b8c0d0'}">${va}</td>
+          <td class="num" style="color:${nb>na?'#20c77a':'#b8c0d0'}">${vb}</td></tr>`).join('')}
+    </tbody></table>` : '<span class="muted" style="font-size:11px">Нет данных</span>';
+
+  // Hourly heatmap
+  const hd = td.hourly;
+  const maxH = Math.max(...Object.values(hd).map(v => Math.abs(v.net)), 1);
+  let hhtml = '<div style="display:grid;grid-template-columns:repeat(24,1fr);gap:2px">';
+  for(let h = 0; h < 24; h++){
+    const v = hd[String(h)] || {net:0, n:0};
+    const int = Math.abs(v.net) / maxH;
+    const bg = v.net >= 0
+      ? `rgba(32,199,122,${(0.08+int*.7).toFixed(2)})`
+      : `rgba(240,96,74,${(0.08+int*.7).toFixed(2)})`;
+    hhtml += `<div class="hm-cell" style="background:${bg};height:34px;flex-direction:column;gap:1px"
+      title="${String(h).padStart(2,'0')}:00 | $${v.net.toFixed(2)} | ${v.n} сд">
+      <span style="font-size:8px;opacity:.7">${String(h).padStart(2,'0')}</span>
+      <span style="font-size:7px;opacity:.6">${v.n||''}</span></div>`;
+  }
+  hhtml += '</div>';
+
+  // Trade rows
+  const tradeRows = td.trades.map((t,i) => {
+    const pc = t.profit >= 0 ? '#20c77a' : '#f0604a';
+    const oc = t.outcome === 'TP' ? 'tg' : 'tr';
+    return `<tr>
+      <td style="color:var(--t3)">${i+1}</td>
+      <td style="color:var(--t3)">${t.open_time}</td>
+      <td><span class="tag ${t.type==='BUY'?'tb':'tr'}">${t.type}</span></td>
+      <td>${t.vol}</td><td>${t.open_p}</td><td>${t.close_p}</td>
+      <td style="color:var(--t3)">${t.sl||'—'}</td>
+      <td style="color:var(--t3)">${t.tp||'—'}</td>
+      <td class="num" style="color:${pc};font-weight:500">${t.profit>=0?'+$':'-$'}${Math.abs(t.profit).toFixed(2)}</td>
+      <td class="num" style="color:${t.r_mult>0?'#20c77a':'#f0604a'}">${t.r_mult>0?'+':''}${t.r_mult}</td>
+      <td><span class="tag ${oc}">${t.outcome}</span></td>
+      <td style="color:var(--t3)">${t.dur}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--t2)">$${t.balance}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+    <div class="row r2" style="margin-bottom:8px">
+      <div>
+        <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Параметры</div>
+        <div class="params-grid">${paramsHtml || '<span class="muted" style="font-size:11px">Нет параметров</span>'}</div>
+      </div>
+      <div>
+        <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>
+        ${sideHtml}
+        <div style="margin-top:10px">
+          <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>По часам</div>
+          ${hhtml}
+        </div>
+      </div>
+    </div>
+    <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--tx)"></span>Сделки · ${run.name}</div>
+    <div class="tbl-wrap-lg">
+    <table><thead><tr>
+      <th>№</th><th>Открытие</th><th>Тип</th><th>Лот</th>
+      <th>Откр.</th><th>Закр.</th><th>SL</th><th>TP</th>
+      <th class="num">Прибыль</th><th class="num">R</th>
+      <th>Исход</th><th>Дл.(м)</th><th>Баланс</th>
+    </tr></thead><tbody>${tradeRows}</tbody></table>
+    </div>`;
+}
+
+// ── COMPARE CHART ────────────────────────────────────────────────
+function updateRunsChart() {
+  if(!runsChart || !RUNS.length) return;
+
+  const datasets = RUNS.map(({name, color, data: td}) => {
+    if(runsChartMode === 'balance') {
+      return {
+        label: name,
+        data:  td.equity_curve.map(([x,y]) => ({x, y})),
+        borderColor: color,
+        backgroundColor: 'transparent',
+        borderWidth: 1.8,
+        fill: false,
+      };
+    } else if(runsChartMode === 'dd') {
+      let peak = 0;
+      const data = td.equity_curve.map(([x,y]) => {
+        if(y > peak) peak = y;
+        return {x, y: Math.round((peak - y) * -100) / 100};
+      });
+      return {
+        label: name,
+        data,
+        borderColor: color,
+        backgroundColor: 'transparent',
+        borderWidth: 1.8,
+        fill: false,
+      };
+    } else {
+      // daily
+      const daily = {};
+      td.trades.forEach(t => { daily[t.date] = (daily[t.date]||0) + t.profit; });
+      const entries = Object.entries(daily).sort();
+      return {
+        label: name,
+        data: entries.map(([x,y]) => ({x, y: Math.round(y*100)/100})),
+        borderColor: color,
+        backgroundColor: color + '33',
+        borderWidth: 1.5,
+        fill: false,
+        type: 'bar',
+      };
+    }
+  });
+
+  runsChart.data = {datasets};
+  runsChart.options.scales.y.title = {
+    display: true,
+    text: runsChartMode === 'dd' ? 'Просадка ($)' : 'Баланс ($)',
+    color: '#7d8899', font: {size: 9}
+  };
+  runsChart.update();
+}
+
 function initTesterSnapshot(){
   // Снапшот удалён — загрузка только через UI
 }
+
 
 // ══════════════════════════════════════════════════════════════
 // BOOT
