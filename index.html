@@ -1531,26 +1531,51 @@ let testerData = null;
 //  TESTER HTML PARSER
 // ══════════════════════════════════════════════════════════════
 function parseTesterHtm(html) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const doc    = new DOMParser().parseFromString(html, 'text/html');
   const tables = doc.querySelectorAll('table');
   if (tables.length < 2) return null;
 
-  // Summary + params
-  const summary = {};
-  let paramsRaw = '';
-  for (const row of tables[0].querySelectorAll('tr')) {
-    const cells = [...row.querySelectorAll('td')];
+  // ── 1. Parse summary from Row 4 flat list (pairs: label, value, label, value...)
+  const summaryRaw = {};
+  const allRows = [...tables[0].querySelectorAll('tr')];
+  // Row 4 has the full flat list starting at index 1
+  const flatRow = allRows[4];
+  if (flatRow) {
+    const cells = [...flatRow.querySelectorAll('td')];
+    const txts  = cells.map(c => c.textContent.trim());
+    // pairs from index 1
+    let i = 1;
+    while (i < txts.length - 1) {
+      const k = txts[i], v = txts[i+1];
+      if (k && v && !/^\s*$/.test(k)) summaryRaw[k] = v;
+      i += 2;
+    }
+  }
+  // Also parse structured rows 5-19 for cleaner key→value
+  for (let ri = 5; ri < allRows.length; ri++) {
+    const cells = [...allRows[ri].querySelectorAll('td')];
     const txts  = cells.map(c => c.textContent.trim());
     for (let i = 0; i < txts.length - 1; i += 2) {
-      if (txts[i] && txts[i+1] && txts[i].length < 80) summary[txts[i]] = txts[i+1];
+      const k = txts[i], v = txts[i+1];
+      if (k && v && !/^\s*$/.test(k) && k !== 'Самая большая' && k !== 'Средняя' && k !== 'Максимальное количество' && k !== 'Макс.' && k !== 'Средний') {
+        summaryRaw[k] = v;
+      }
     }
-    for (const cell of cells) {
-      const t = cell.textContent.trim();
-      if (t.length > 200) paramsRaw = t;
+    // Handle sub-label rows (e.g. "Самая большая" → "прибыльная сделка", "убыточная сделка")
+    if (txts[0] && txts.length >= 3) {
+      const prefix = txts[0];
+      if (['Самая большая','Средняя','Максимальное количество','Макс.','Средний'].includes(prefix)) {
+        for (let i = 1; i < txts.length - 1; i += 2) {
+          if (txts[i] && txts[i+1]) summaryRaw[prefix + ' ' + txts[i]] = txts[i+1];
+        }
+      }
     }
   }
 
-  // Parse known params
+  // ── 2. Parse params from Row 3
+  const paramsRow = allRows[3];
+  let paramsRaw = paramsRow ? paramsRow.querySelector('td')?.textContent || '' : '';
+
   const KEY_MAP = {
     'РазмерЛота':'Лот','ПроцентРиска':'% риска',
     'МаксимальныйSL_Пункты':'Макс SL (пп)','МаксимальныйСпред':'Макс спред',
@@ -1559,11 +1584,15 @@ function parseTesterHtm(html) {
     'РежимТППродвинутый':'Частич. закрытие','TP1_Процент':'TP1 %','TP2_Процент':'TP2 %',
     'МаксУбытковПодряд':'Макс серия убытков','МаксСделокВДень':'Макс сд/день',
     'ВключитьHTFФильтр':'HTF фильтр','ВыбранныйТаймфрейм':'Таймфрейм',
-    'НачалоТорговли_Час':'Начало','КонецТорговли_Час':'Конец',
+    'НачалоТорговли_Час':'Начало торговли','КонецТорговли_Час':'Конец торговли',
     'ФильтрПоТренду':'Фильтр тренда','РежимВремени':'Режим времени',
     'РежимБезубытка':'Безубыток','МаксПросадка':'Макс просадка %',
     'МаксПроскальзывание':'Проскальзывание','МинимальныйRR':'Мин RR',
     'ПериодСвинга':'Период свинга','МножительATR_Близость':'Мн. ATR',
+    'РежимТП':'Режим TP','МножительТП':'Множитель TP',
+    'РежимЗащитыSL':'Режим защиты SL','СпособРасчётаSL':'Расчёт SL',
+    'ТипСигнала':'Тип сигнала','РежимПодтверждения':'Подтверждение',
+    'ВключитьЗащитуДепозита':'Защита депозита',
   };
   const params = {};
   for (const [key, label] of Object.entries(KEY_MAP)) {
@@ -1571,36 +1600,108 @@ function parseTesterHtm(html) {
     const m  = paramsRaw.match(rx);
     if (m) params[label] = m[1].trim().replace(/"/g,'');
   }
-  // Fallback: parse any KEY=VALUE pairs
-  if (Object.keys(params).length === 0) {
-    const pairs = paramsRaw.matchAll(/([A-Za-zА-ЯЁа-яё_]\w*)=([^;,\n]+)/g);
-    for (const [, k, v] of pairs) {
-      if (v.trim() && !params[k]) params[k] = v.trim();
-    }
+  if (!Object.keys(params).length) {
+    const pairs = [...paramsRaw.matchAll(/([A-Za-zА-ЯЁа-яё_]\w*)=([^;,\n"]+)/g)];
+    pairs.slice(0,30).forEach(([,k,v]) => { if(v.trim()) params[k] = v.trim(); });
   }
 
-  // Header info
-  const depStr = (summary['Начальный депозит'] || '').replace(/[^\d.]/g,'');
-  const deposit = parseFloat(depStr) || 1000;
-  const header = {
-    symbol:  (summary['Символ'] || 'XAUUSD').split('(')[0].trim(),
-    period:  (summary['Период'] || '').slice(0, 60),
-    deposit: deposit.toFixed(2),
-    spread:  summary['Спред'] || '',
-    bars:    summary['Баров в истории'] || '',
-    ticks:   summary['Смоделировано тиков'] || '',
+  // ── 3. Build structured summary object from summaryRaw
+  const pf = v => parseFloat((v||'').replace(/[^\d.\-]/g,'')) || 0;
+  const summary_mt4 = {
+    'Баров в истории':                        summaryRaw['Баров в истории'] || '',
+    'Смоделировано тиков':                    summaryRaw['Смоделировано тиков'] || '',
+    'Качество моделирования':                 summaryRaw['Качество моделирования'] || '',
+    'Ошибки рассогласования':                 summaryRaw['Ошибки рассогласования графиков'] || '0',
+    'Начальный депозит':                      summaryRaw['Начальный депозит'] || '',
+    'Спред':                                  summaryRaw['Спред'] || '',
+    'Чистая прибыль':                         summaryRaw['Чистая прибыль'] || '',
+    'Общая прибыль':                          summaryRaw['Общая прибыль'] || '',
+    'Общий убыток':                           summaryRaw['Общий убыток'] || '',
+    'Прибыльность':                           summaryRaw['Прибыльность'] || '',
+    'Матожидание выигрыша':                   summaryRaw['Матожидание выигрыша'] || '',
+    'Абсолютная просадка':                    summaryRaw['Абсолютная просадка'] || '',
+    'Максимальная просадка':                  summaryRaw['Максимальная просадка'] || '',
+    'Относительная просадка':                 summaryRaw['Относительная просадка'] || '',
+    'Всего сделок':                           summaryRaw['Всего сделок'] || '',
+    'Короткие позиции':                       summaryRaw['Короткие позиции (% выигравших)'] || '',
+    'Длинные позиции':                        summaryRaw['Длинные позиции (% выигравших)'] || '',
+    'Прибыльные сделки':                      summaryRaw['Прибыльные сделки (% от всех)'] || '',
+    'Убыточные сделки':                       summaryRaw['Убыточные сделки (% от всех)'] || '',
+    'Самая большая прибыльная сделка':        summaryRaw['Самая большая прибыльная сделка'] || '',
+    'Самая большая убыточная сделка':         summaryRaw['Самая большая убыточная сделка'] || '',
+    'Средняя прибыльная сделка':              summaryRaw['Средняя прибыльная сделка'] || '',
+    'Средняя убыточная сделка':               summaryRaw['Средняя убыточная сделка'] || '',
+    'Макс. непрерывных выигрышей':            summaryRaw['Максимальное количество непрерывных выигрышей (прибыль)'] || '',
+    'Макс. непрерывных проигрышей':           summaryRaw['Максимальное количество непрерывных проигрышей (убыток)'] || '',
+    'Макс. непрерывная прибыль':              summaryRaw['Макс. непрерывная прибыль (число выигрышей)'] || '',
+    'Макс. непрерывный убыток':               summaryRaw['Макс. непрерывный убыток (число проигрышей)'] || '',
+    'Средний непрерывный выигрыш':            summaryRaw['Средний непрерывный выигрыш'] || '',
+    'Средний непрерывный проигрыш':           summaryRaw['Средний непрерывный проигрыш'] || '',
   };
 
-  // Parse trades
+  // ── 4. Numeric summary for comparison table
+  const depStr  = (summaryRaw['Начальный депозит'] || '1000').replace(/[^\d.]/g,'');
+  const deposit = parseFloat(depStr) || 1000;
+  const net_pnl = pf(summaryRaw['Чистая прибыль']);
+  const gross_w = pf(summaryRaw['Общая прибыль']);
+  const gross_l = pf(summaryRaw['Общий убыток']);
+  const pf_val  = pf(summaryRaw['Прибыльность']);
+  const exp_val = pf(summaryRaw['Матожидание выигрыша']);
+  const abs_dd  = pf(summaryRaw['Абсолютная просадка']);
+  const total   = parseInt(summaryRaw['Всего сделок']) || 0;
+
+  // Max DD: "722.10 (71.72%)"
+  const maxDDStr = summaryRaw['Максимальная просадка'] || '';
+  const maxDDm   = maxDDStr.match(/([\d.]+)\s*\(([\d.]+)%\)/);
+  const max_dd      = maxDDm ? parseFloat(maxDDm[1]) : abs_dd;
+  const max_dd_pct  = maxDDm ? parseFloat(maxDDm[2]) : 0;
+
+  // Win/loss counts from "12 (0.00%)"
+  const shortStr = summaryRaw['Короткие позиции (% выигравших)'] || '';
+  const longStr  = summaryRaw['Длинные позиции (% выигравших)']  || '';
+  const profStr  = summaryRaw['Прибыльные сделки (% от всех)']   || '';
+  const lossStr  = summaryRaw['Убыточные сделки (% от всех)']    || '';
+  const shortN = parseInt(shortStr) || 0;
+  const longN  = parseInt(longStr)  || 0;
+  const profN  = parseInt(profStr)  || 0;
+  const lossN  = parseInt(lossStr)  || 0;
+  const wr     = total ? Math.round(profN / total * 1000) / 10 : 0;
+
+  // Short/long WR from "12 (0.00%)" → 0.00%
+  const shortWRm = shortStr.match(/\(([\d.]+)%\)/);
+  const longWRm  = longStr.match(/\(([\d.]+)%\)/);
+  const shortWR  = shortWRm ? parseFloat(shortWRm[1]) : 0;
+  const longWR   = longWRm  ? parseFloat(longWRm[1])  : 0;
+
+  // Streak
+  const maxLossStreakStr = summaryRaw['Максимальное количество непрерывных проигрышей (убыток)'] || '';
+  const maxLSm = maxLossStreakStr.match(/^(\d+)/);
+  const maxLS  = maxLSm ? parseInt(maxLSm[1]) : 0;
+  const maxWinStreakStr = summaryRaw['Максимальное количество непрерывных выигрышей (прибыль)'] || '';
+  const maxWSm = maxWinStreakStr.match(/^(\d+)/);
+  const maxWS  = maxWSm ? parseInt(maxWSm[1]) : 0;
+
+  // ── 5. Header
+  const header = {
+    symbol:  (summaryRaw['Символ'] || doc.querySelector('td')?.textContent || 'XAUUSD').split('(')[0].trim(),
+    period:  (summaryRaw['Период'] || allRows[1]?.querySelector('td')?.textContent || '').slice(0, 80),
+    deposit: deposit.toFixed(2),
+    spread:  summaryRaw['Спред'] || '',
+    bars:    summaryRaw['Баров в истории'] || '',
+    ticks:   summaryRaw['Смоделировано тиков'] || '',
+    model:   (summaryRaw['Модель'] || (allRows[2]?.querySelector('td')?.textContent || '')).slice(0,50),
+    quality: summaryRaw['Качество моделирования'] || '',
+  };
+
+  // ── 6. Parse trades
   function calcRM(op, sl, cp, profit) {
     if (!sl || !op) return 0;
-    const risk = Math.abs(op - sl), rew = Math.abs(cp - op);
-    return Math.round((rew/risk || 0) * (profit >= 0 ? 1 : -1) * 100) / 100;
+    const risk = Math.abs(op-sl), rew = Math.abs(cp-op);
+    return Math.round((rew/risk||0) * (profit>=0?1:-1) * 100) / 100;
   }
   function inferOut(sl, tp, cp, profit) {
-    if (tp && Math.abs(cp - tp) <= 0.25) return 'TP';
-    if (sl && Math.abs(cp - sl) <= 0.25) return 'SL';
-    if (Math.abs(profit) < 0.02) return 'BREAKEVEN';
+    if (tp && Math.abs(cp-tp) <= 0.25) return 'TP';
+    if (sl && Math.abs(cp-sl) <= 0.25) return 'SL';
     return profit > 0 ? 'TP' : 'SL';
   }
 
@@ -1613,58 +1714,32 @@ function parseTesterHtm(html) {
     if (!/^\d+$/.test(vals[0])) continue;
     const typ = vals[2].toLowerCase(), order = vals[3];
     if (typ === 'buy' || typ === 'sell') {
-      openMap[order] = {
-        order, open_time: vals[1], type: typ.toUpperCase(),
-        vol:  parseFloat(vals[4]) || 0.01,
-        open_p: parseFloat(vals[5]) || 0,
-        sl:     parseFloat(vals[6]) || 0,
-        tp:     parseFloat(vals[7]) || 0,
-      };
+      openMap[order] = {order, open_time:vals[1], type:typ.toUpperCase(),
+        vol: parseFloat(vals[4])||0.01, open_p:parseFloat(vals[5])||0,
+        sl: parseFloat(vals[6])||0, tp: parseFloat(vals[7])||0};
     } else if (typ === 'close' && openMap[order]) {
       const o = openMap[order]; delete openMap[order];
       try {
-        const profit  = parseFloat(vals[8]) || 0;
-        const balance = parseFloat(vals[9]) || 0;
-        const close_p = parseFloat(vals[5]) || 0;
+        const profit  = parseFloat(vals[8])||0;
+        const balance = parseFloat(vals[9])||0;
+        const cp      = parseFloat(vals[5])||0;
         const od = new Date(o.open_time.replace(/\./g,'-').replace(' ','T'));
         const cd = new Date(vals[1].replace(/\./g,'-').replace(' ','T'));
-        const dur = Math.round((cd - od) / 60000 * 10) / 10;
-        trades.push({
-          order, open_time: o.open_time, close_time: vals[1],
-          type: o.type, vol: o.vol,
-          open_p: o.open_p, close_p, sl: o.sl, tp: o.tp,
-          profit, balance, dur,
-          r_mult:  calcRM(o.open_p, o.sl, close_p, profit),
-          outcome: inferOut(o.sl, o.tp, close_p, profit),
-          date: o.open_time.slice(0,10),
-          hour: parseInt(o.open_time.slice(11,13)) || 0,
-          dow:  (od.getDay() + 6) % 7,
+        trades.push({order, open_time:o.open_time, close_time:vals[1], type:o.type,
+          vol:o.vol, open_p:o.open_p, close_p:cp, sl:o.sl, tp:o.tp,
+          profit, balance, dur: Math.round((cd-od)/60000*10)/10,
+          r_mult: calcRM(o.open_p, o.sl, cp, profit),
+          outcome: inferOut(o.sl, o.tp, cp, profit),
+          date: o.open_time.slice(0,10), hour: parseInt(o.open_time.slice(11,13))||0,
+          dow: (od.getDay()+6)%7,
         });
       } catch(e) {}
     }
   }
 
-  if (!trades.length) return null;
-
-  // Compute summary stats
-  const profits = trades.map(t => t.profit);
-  const wins    = profits.filter(p => p > 0);
-  const losses  = profits.filter(p => p < 0);
-  const net     = profits.reduce((a,b) => a+b, 0);
-  const gw      = wins.reduce((a,b) => a+b, 0) || 0;
-  const gl      = Math.abs(losses.reduce((a,b) => a+b, 0) || 0);
-  const pf      = gl ? gw/gl : gw ? 99.9 : 0;
-
-  let peak = deposit, maxdd = 0;
-  trades.forEach(t => {
-    if (t.balance > peak) peak = t.balance;
-    const dd = peak - t.balance;
-    if (dd > maxdd) maxdd = dd;
-  });
-
+  const r2 = v => Math.round(v*100)/100;
   const daily = {};
   trades.forEach(t => { daily[t.date] = (daily[t.date]||0) + t.profit; });
-
   const hourly = {};
   trades.forEach(t => {
     const h = String(t.hour);
@@ -1673,43 +1748,41 @@ function parseTesterHtm(html) {
   });
 
   function ss(lst) {
-    if (!lst.length) return {n:0, net:0, wr:0, avg_win:0, avg_loss:0};
-    const ps = lst.map(t => t.profit);
-    const ws = ps.filter(p => p>0), ls = ps.filter(p => p<0);
+    if (!lst.length) return {n:0,net:0,wr:0,avg_win:0,avg_loss:0};
+    const ps = lst.map(t=>t.profit);
+    const ws = ps.filter(p=>p>0), ls = ps.filter(p=>p<0);
     const mean = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : 0;
-    return {n:lst.length, net:Math.round(ps.reduce((a,b)=>a+b,0)*100)/100,
-      wr: Math.round(ws.length/ps.length*100*10)/10,
-      avg_win: Math.round(mean(ws)*100)/100, avg_loss: Math.round(mean(ls)*100)/100};
+    return {n:lst.length, net:r2(ps.reduce((a,b)=>a+b,0)),
+      wr: r2(ws.length/ps.length*100), avg_win:r2(mean(ws)), avg_loss:r2(mean(ls))};
   }
 
-  let maxLS = 0, curLS = 0;
-  profits.forEach(p => { if(p<0){curLS++;maxLS=Math.max(maxLS,curLS);}else curLS=0; });
-
-  const r2 = v => Math.round(v*100)/100;
   return {
     header, params,
+    summary_mt4,
     summary: {
-      net_pnl:        r2(net), gross_win: r2(gw), gross_loss: r2(gl),
-      win_rate:       r2(wins.length / profits.length * 100),
-      profit_factor:  r2(Math.min(pf, 99.9)),
-      expectancy:     r2(net / profits.length),
-      total_trades:   profits.length, wins: wins.length, losses: losses.length,
-      max_dd:         r2(maxdd), max_dd_pct: r2(maxdd / deposit * 100),
-      avg_win:        r2(wins.length ? gw/wins.length : 0),
-      avg_loss:       r2(losses.length ? -gl/losses.length : 0),
-      best_trade:     r2(Math.max(0, ...profits)),
-      worst_trade:    r2(Math.min(0, ...profits)),
-      final_balance:  r2(trades[trades.length-1]?.balance || deposit),
+      net_pnl: r2(net_pnl), gross_win: r2(gross_w), gross_loss: r2(gross_l),
+      profit_factor: r2(pf_val), expectancy: r2(exp_val),
+      win_rate: wr, total_trades: total, wins: profN, losses: lossN,
+      max_dd: r2(max_dd), max_dd_pct: r2(max_dd_pct),
+      abs_dd: r2(abs_dd),
+      avg_win:  r2(pf(summaryRaw['Средняя прибыльная сделка'] || summaryRaw['Средняя прибыльная сделка'])),
+      avg_loss: r2(pf(summaryRaw['Средняя убыточная сделка'])),
+      best_trade:  r2(pf(summaryRaw['Самая большая прибыльная сделка'] || '')),
+      worst_trade: r2(pf(summaryRaw['Самая большая убыточная сделка'] || '')),
+      final_balance: trades.length ? r2(trades[trades.length-1].balance) : deposit,
+      short_n: shortN, short_wr: shortWR, long_n: longN, long_wr: longWR,
+      max_win_streak: maxWS, max_loss_streak: maxLS,
     },
     trades,
     equity_curve: trades.map(t => [t.close_time, t.balance]),
-    daily:        Object.entries(daily).sort().map(([d,v]) => [d, r2(v)]),
+    daily: Object.entries(daily).sort().map(([d,v]) => [d, r2(v)]),
     hourly,
-    buy_stats:  ss(trades.filter(t => t.type === 'BUY')),
-    sell_stats: ss(trades.filter(t => t.type === 'SELL')),
+    buy_stats:  ss(trades.filter(t => t.type==='BUY')),
+    sell_stats: ss(trades.filter(t => t.type==='SELL')),
     max_loss_streak: maxLS,
   };
 }
+
 
 
 // ══════════════════════════════════════════════════════════════
@@ -1904,6 +1977,83 @@ function renderRunDetail(id) {
   const td = run.data;
   const s  = td.summary;
 
+  // Full MT4 summary grid
+  const s = td.summary;
+  const mt4 = td.summary_mt4 || {};
+  
+  // Color helper
+  const numColor = (v, goodIfPos=true) => {
+    const n = parseFloat(String(v).replace(/[^\d.\-]/g,''));
+    if (isNaN(n)) return 'var(--t2)';
+    return goodIfPos ? (n > 0 ? '#20c77a' : n < 0 ? '#f0604a' : 'var(--t2)')
+                     : (n < 0 ? '#20c77a' : n > 0 ? '#f0604a' : 'var(--t2)');
+  };
+
+  // MT4 summary sections
+  const mt4Sections = [
+    {title:'Общее', rows:[
+      ['Символ', td.header.symbol],
+      ['Период', td.header.period],
+      ['Начальный депозит', '$' + td.header.deposit],
+      ['Спред', td.header.spread + ' пп'],
+      ['Итоговый баланс', '$' + s.final_balance, s.final_balance > parseFloat(td.header.deposit) ? '#20c77a' : '#f0604a'],
+      ['Баров в истории', mt4['Баров в истории']],
+      ['Смоделировано тиков', mt4['Смоделировано тиков']],
+      ['Качество моделирования', mt4['Качество моделирования']],
+    ]},
+    {title:'P&L', rows:[
+      ['Чистая прибыль', mt4['Чистая прибыль'], numColor(mt4['Чистая прибыль'])],
+      ['Общая прибыль', mt4['Общая прибыль'], '#20c77a'],
+      ['Общий убыток', mt4['Общий убыток'], '#f0604a'],
+      ['Прибыльность (PF)', mt4['Прибыльность']],
+      ['Матожидание', mt4['Матожидание выигрыша'], numColor(mt4['Матожидание выигрыша'])],
+    ]},
+    {title:'Просадка', rows:[
+      ['Абсолютная просадка', mt4['Абсолютная просадка'], '#f0604a'],
+      ['Максимальная просадка', mt4['Максимальная просадка'], '#f0604a'],
+      ['Относительная просадка', mt4['Относительная просадка'], '#f0604a'],
+    ]},
+    {title:'Сделки', rows:[
+      ['Всего сделок', mt4['Всего сделок']],
+      ['Длинные (WR%)', mt4['Длинные позиции']],
+      ['Короткие (WR%)', mt4['Короткие позиции']],
+      ['Прибыльные (% от всех)', mt4['Прибыльные сделки'], '#20c77a'],
+      ['Убыточные (% от всех)', mt4['Убыточные сделки'], '#f0604a'],
+    ]},
+    {title:'Размеры сделок', rows:[
+      ['Самая большая прибыльная', mt4['Самая большая прибыльная сделка'], '#20c77a'],
+      ['Самая большая убыточная',  mt4['Самая большая убыточная сделка'],  '#f0604a'],
+      ['Средняя прибыльная', mt4['Средняя прибыльная сделка'], '#20c77a'],
+      ['Средняя убыточная',  mt4['Средняя убыточная сделка'],  '#f0604a'],
+    ]},
+    {title:'Серии', rows:[
+      ['Макс. выигрышей подряд', mt4['Макс. непрерывных выигрышей']],
+      ['Макс. проигрышей подряд', mt4['Макс. непрерывных проигрышей'], '#f0604a'],
+      ['Макс. непрерывная прибыль', mt4['Макс. непрерывная прибыль'], '#20c77a'],
+      ['Макс. непрерывный убыток', mt4['Макс. непрерывный убыток'], '#f0604a'],
+      ['Ср. непрерывный выигрыш', mt4['Средний непрерывный выигрыш']],
+      ['Ср. непрерывный проигрыш', mt4['Средний непрерывный проигрыш'], '#f0604a'],
+    ]},
+  ];
+
+  const mt4SummaryHtml = mt4Sections.map(sec => {
+    const rowsHtml = sec.rows.filter(r => r[1]).map(([k, v, color]) =>
+      `<div class="param-row">
+        <span class="param-key">${k}</span>
+        <span class="param-val" style="color:${color||'var(--tx)'}">${v}</span>
+      </div>`
+    ).join('');
+    if (!rowsHtml) return '';
+    return `<div style="margin-bottom:8px">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;
+        letter-spacing:.07em;margin-bottom:4px;padding-bottom:3px;border-bottom:.5px solid var(--b1)">
+        ${sec.title}</div>
+      <div class="params-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+        ${rowsHtml}
+      </div>
+    </div>`;
+  }).join('');
+
   // Params grid
   const paramsHtml = Object.entries(td.params).map(([k,v]) =>
     `<div class="param-row"><span class="param-key">${k}</span><span class="param-val">${v}</span></div>`
@@ -1960,10 +2110,16 @@ function renderRunDetail(id) {
   }).join('');
 
   return `
+    <div style="margin-bottom:8px">
+      <div class="card-title" style="margin-bottom:8px">
+        <span class="card-dot" style="background:var(--cy)"></span>Полный отчёт MT4
+      </div>
+      ${mt4SummaryHtml}
+    </div>
     <div class="row r2" style="margin-bottom:8px">
       <div>
-        <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Параметры</div>
-        <div class="params-grid">${paramsHtml || '<span class="muted" style="font-size:11px">Нет параметров</span>'}</div>
+        <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Параметры запуска</div>
+        ${paramsHtml ? '<div class="params-grid">' + paramsHtml + '</div>' : '<span class="muted" style="font-size:11px">Нет параметров</span>'}
       </div>
       <div>
         <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>
