@@ -15,10 +15,8 @@
   --r:#f0604a;--rd:rgba(240,96,74,.16);
   --a:#f4a623;--ad:rgba(244,166,35,.16);
   --bl:#4a9ff5;--bld:rgba(74,159,245,.16);
-  --pu:#9b8ff7;
-  --cy:#2ecfcf;
-  --mono:'JetBrains Mono',monospace;
-  --sans:'Inter',sans-serif;
+  --pu:#9b8ff7;--cy:#2ecfcf;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
   --rad:10px;--rsm:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -126,8 +124,6 @@ thead{position:sticky;top:0;z-index:2}
 thead tr{background:var(--s2)}
 th{color:var(--t3);font-weight:400;text-align:left;padding:6px 9px;border-bottom:.5px solid var(--b2);white-space:nowrap;cursor:pointer;user-select:none;font-size:10px}
 th:hover{color:var(--t2)}
-th.sa::after{content:' ↑';color:var(--g)}
-th.sd::after{content:' ↓';color:var(--g)}
 td{padding:5px 9px;border-bottom:.5px solid var(--b1);color:var(--t2);white-space:nowrap;font-size:11px}
 tr:hover td{background:rgba(255,255,255,.03);color:var(--tx)}
 td.num{text-align:right}
@@ -167,10 +163,6 @@ tr.grp:hover td{background:rgba(244,166,35,.08)}
 .param-row{background:var(--s2);border:.5px solid var(--b1);border-radius:var(--rsm);padding:6px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .param-key{font-family:var(--mono);font-size:9px;color:var(--t3)}
 .param-val{font-family:var(--mono);font-size:11px;color:var(--tx);font-weight:500}
-.tester-header{background:var(--s1);border:.5px solid var(--b1);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
-.tester-hdr-item{display:flex;flex-direction:column;gap:2px}
-.tester-hdr-lbl{font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
-.tester-hdr-val{font-family:var(--mono);font-size:12px;color:var(--tx)}
 .green{color:var(--g)}.red{color:var(--r)}.amber{color:var(--a)}.blue{color:var(--bl)}.muted{color:var(--t3)}
 .chart-wrap{position:relative;width:100%}
 .hidden{display:none!important}
@@ -178,8 +170,7 @@ tr.grp:hover td{background:rgba(244,166,35,.08)}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--b3);border-radius:2px}
 input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
-
-/* ── TESTER MULTI-RUN ── */
+/* TESTER MULTI-RUN */
 .run-list{display:flex;flex-direction:column;gap:0}
 .run-row{display:flex;align-items:center;gap:0;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .12s}
 .run-row:hover{background:rgba(255,255,255,.03)}
@@ -199,19 +190,16 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
 .clear-runs-btn{font-family:var(--mono);font-size:10px;padding:5px 12px;border:.5px solid var(--b2);border-radius:var(--rsm);color:var(--t3);background:transparent;cursor:pointer}
 .clear-runs-btn:hover{color:var(--r);border-color:var(--r)}
 .run-count-badge{font-family:var(--mono);font-size:10px;color:var(--t3)}
-.param-diff{font-size:9px;color:var(--a);margin-left:4px}
 .tester-empty{text-align:center;padding:40px 20px;font-family:var(--mono);color:var(--t3)}
 .tester-empty-icon{font-size:32px;margin-bottom:10px;opacity:.4}
 .tester-empty-text{font-size:12px;margin-bottom:6px}
 .tester-empty-sub{font-size:10px}
-
 </style>
 </head>
 <body>
-
 <div class="hd">
   <div>
-    <div class="hd-logo" style="font-family:var(--mono)">⚡ MT4 <span>Аналитика</span></div>
+    <div class="hd-logo">⚡ MT4 <span>Аналитика</span></div>
     <div class="hd-meta" id="period-label">загрузка...</div>
   </div>
   <div class="hd-right">
@@ -326,15 +314,13 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   <div class="kpi hidden" id="kpi-gl"><div class="kpi-label">Вал. убыток</div><div class="kpi-val red">—</div><div class="kpi-sub">—</div><div class="kpi-arrow"></div><div class="kpi-sem"></div></div>
 </div>
 
-<div class="row r-eq" style="margin-bottom:10px">
+<div class="row r-eq" style="margin-bottom:8px">
   <div class="card">
     <div class="card-title"><span class="card-dot" style="background:var(--g)"></span>Кривая эквити
-      <span id="compare-note-eq" style="font-family:var(--mono);font-size:9px;color:var(--cy);margin-left:4px"></span>
       <div style="display:flex;gap:2px;margin-left:auto">
         <button type="button" class="ctab on" data-eq onclick="switchEqMode('eq',this)">Эквити</button>
         <button type="button" class="ctab" data-eq onclick="switchEqMode('dd',this)">Просадка</button>
         <button type="button" class="ctab" data-eq onclick="switchEqMode('daily',this)">По дням</button>
-        <button type="button" class="ctab hidden" data-eq id="ctab-compare" onclick="switchEqMode('compare',this)">Сравнение</button>
       </div>
     </div>
     <div class="chart-wrap" style="height:210px"><canvas id="chart-eq"></canvas></div>
@@ -350,12 +336,12 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   </div>
 </div>
 
-<div class="card" style="margin-bottom:10px">
+<div class="card" style="margin-bottom:8px">
   <div class="card-title"><span class="card-dot" style="background:var(--cy)"></span>Сессии</div>
   <div class="sess-grid" id="sess-grid"></div>
 </div>
 
-<div class="row r-main" style="margin-bottom:10px">
+<div class="row r-main" style="margin-bottom:8px">
   <div class="card">
     <div class="card-title"><span class="card-dot" style="background:var(--pu)"></span>Боты
       <button type="button" class="exp-btn" style="margin-left:auto;font-size:9px" onclick="exportCSV()">⬇ CSV</button>
@@ -385,7 +371,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   </div>
 </div>
 
-<div class="row r2" style="margin-bottom:10px">
+<div class="row r2" style="margin-bottom:8px">
   <div class="card">
     <div class="card-title"><span class="card-dot" style="background:var(--g)"></span>R-мультипликатор</div>
     <div class="chart-wrap" style="height:180px"><canvas id="chart-r"></canvas></div>
@@ -400,7 +386,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   </div>
 </div>
 
-<div class="row r2 hidden ext-section" style="margin-bottom:10px">
+<div class="row r2 hidden ext-section" style="margin-bottom:8px">
   <div class="card">
     <div class="card-title"><span class="card-dot" style="background:var(--a)"></span>Почасовая (UTC+3)</div>
     <div id="hourly-heatmap"></div>
@@ -411,7 +397,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   </div>
 </div>
 
-<div class="card hidden ext-section" style="margin-bottom:10px">
+<div class="card hidden ext-section" style="margin-bottom:8px">
   <div class="card-title"><span class="card-dot" style="background:var(--bl)"></span>Паттерны</div>
   <div class="tbl-wrap">
   <table><thead><tr>
@@ -456,7 +442,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
 
 <div class="tab-pane" id="tab-tester">
 
-<!-- Tester toolbar -->
 <div class="upload-bar" id="tester-toolbar">
   <label class="upload-btn" for="tester-add-input">⬆ Загрузить отчёт тестера</label>
   <input type="file" id="tester-add-input" accept=".htm,.html" multiple style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">
@@ -467,7 +452,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   </div>
 </div>
 
-<!-- Empty state -->
 <div id="tester-empty-state" class="card" style="margin-bottom:8px">
   <div class="tester-empty">
     <div class="tester-empty-icon">📈</div>
@@ -476,10 +460,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
   </div>
 </div>
 
-<!-- Multi-run content -->
 <div id="tester-runs-content" style="display:none">
 
-  <!-- Comparison chart -->
   <div class="card" style="margin-bottom:8px">
     <div class="card-title">
       <span class="card-dot" style="background:var(--g)"></span>Сравнение балансов
@@ -492,21 +474,20 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
     <div class="chart-wrap" style="height:220px"><canvas id="tester-compare-chart"></canvas></div>
   </div>
 
-  <!-- Comparison table -->
   <div class="card" style="margin-bottom:8px">
     <div class="card-title">
       <span class="card-dot" style="background:var(--pu)"></span>Сравнение запусков
       <span style="font-family:var(--mono);font-size:9px;color:var(--t3);margin-left:6px">↓ Кликните на строку для деталей</span>
     </div>
     <div style="overflow-x:auto">
-      <div class="run-header" id="tester-run-header">
+      <div class="run-header">
         <div class="run-hcell" style="width:16px"></div>
         <div class="run-hcell" style="min-width:140px">Запуск</div>
         <div class="run-hcell" style="min-width:90px">Net P&L</div>
         <div class="run-hcell" style="min-width:70px">WR%</div>
         <div class="run-hcell" style="min-width:60px">PF</div>
         <div class="run-hcell" style="min-width:80px">Матожид.</div>
-        <div class="run-hcell" style="min-width:80px">Макс DD</div>
+        <div class="run-hcell" style="min-width:90px">Макс DD</div>
         <div class="run-hcell" style="min-width:55px">Сделок</div>
         <div class="run-hcell" style="min-width:65px">Лучшая</div>
         <div class="run-hcell" style="min-width:65px">Худшая</div>
@@ -519,53 +500,15 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
     </div>
   </div>
 
-  <!-- Detail panel (expanded run) -->
   <div id="tester-detail-panel" style="display:none">
-    <div class="row r2" style="margin-bottom:8px">
-      <div class="card">
-        <div class="card-title"><span class="card-dot" style="background:var(--a)"></span>Параметры запуска</div>
-        <div class="params-grid" id="detail-params"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>
-        <div id="detail-side-cmp"></div>
-        <div style="margin-top:10px">
-          <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Часовая активность</div>
-          <div id="detail-hourly"></div>
-        </div>
-      </div>
-    </div>
-    <div class="card" style="margin-bottom:8px">
-      <div class="card-title"><span class="card-dot" style="background:var(--tx)"></span>Сделки выбранного запуска
-        <span id="detail-run-label" style="font-family:var(--mono);font-size:10px;color:var(--cy);margin-left:8px"></span>
-      </div>
-      <div class="tbl-wrap-lg">
-      <table><thead><tr>
-        <th>№</th><th>Открытие</th><th>Тип</th><th>Лот</th>
-        <th>Откр.</th><th>Закр.</th><th>SL</th><th>TP</th>
-        <th class="num">Прибыль</th><th class="num">R</th>
-        <th>Исход</th><th>Дл.(м)</th><th>Баланс</th>
-      </tr></thead><tbody id="detail-trades-tbody"></tbody></table>
-      </div>
-    </div>
   </div>
 
-</div><!-- /tester-runs-content -->
-</div><!-- /tab-tester -->
+</div>
+</div>
 <script>
 // ══════════════════════════════════════════════════════════════
-// DATA
+// DATA — пустой старт, всё загружается через UI
 // ══════════════════════════════════════════════════════════════
-const SNAPSHOT = {
-  trade_table: [],
-  bot_data: {}, bot_equity: {}, tf_data: {},
-  overall: {}, equity_curve: [], dd_curve: [], daily: [],
-  hourly: {}, r_hist: [], scatter: [], dow_hour: {},
-  outcome_counts: {}, pattern_data: {}, session_stats: {},
-  buy_stats: {}, sell_stats: {}, streaks: {max_wins:0,max_losses:0}
-};
-const TESTER_SNAPSHOT = {trades:[], params:{}, summary:{total_trades:0}, header:{}, hourly:{}, daily:[], equity_curve:[], buy_stats:{}, sell_stats:{}, max_loss_streak:0};
-
 const STORAGE_VERSION = 5;
 let ALL_TRADES = [];
 let LOADED_SOURCES = [];
@@ -587,7 +530,6 @@ function saveToStorage() {
 }
 function initData() {
   if (!loadFromStorage()) {
-    // Нет сохранённых данных — показываем пустой дашборд
     ALL_TRADES = [];
     LOADED_SOURCES = [];
   }
@@ -638,7 +580,7 @@ function updateSourceList() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// MT4 HTML PARSER
+// MT4 HTML PARSER (для журнала сделок)
 // ══════════════════════════════════════════════════════════════
 function parseMT4Html(htmlText) {
   const doc = new DOMParser().parseFromString(htmlText, 'text/html');
@@ -672,7 +614,6 @@ function parseMT4Html(htmlText) {
       profit:     parseFloat(cells[13].textContent) || 0,
     });
   }
-  // Group by lid
   const byLid = {};
   for (const r of rawRows) {
     if (!r.lid) continue;
@@ -773,7 +714,7 @@ function durMin(a,b) {
 }
 
 // ══════════════════════════════════════════════════════════════
-// FILE UPLOAD
+// FILE UPLOAD (live trading)
 // ══════════════════════════════════════════════════════════════
 document.getElementById('file-drop').addEventListener('change', function(e) {
   const f = e.target.files[0]; if (f) handleFile(f); this.value='';
@@ -812,24 +753,13 @@ function clearData() {
   LOADED_SOURCES = [];
   updateSourceList();
   resetFilters();
-  filteredTrades = [];
-  updateKPIs();
-  updateEqChart();
-  updateOutcomeChart();
-  renderBotTable();
-  renderSideCmp();
-  renderTFCmp();
-  renderHourlyHeatmap();
-  renderSessionCards();
-  renderTradeTable();
-  updateCalcCards();
-  document.getElementById('f-count').textContent = '0 сделок';
+  applyFilters();
   showStatus('↺ Данные очищены', 'var(--a)');
 }
 function showStatus(msg, color) {
   const el = document.getElementById('upload-status');
   el.textContent = msg; el.style.color = color;
-  setTimeout(() => el.textContent='', 4000);
+  setTimeout(() => { el.textContent=''; }, 4000);
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -843,9 +773,9 @@ let trSortKey = 'open_time', trSortDir = 1;
 let botSortCol = 3, botSortDir = -1;
 
 function initFilterPills() {
-  if(!ALL_TRADES.length){
-    document.getElementById('f-bot').innerHTML='<span class="fpill on" data-v="ALL">Все</span>';
-    document.getElementById('f-tf').innerHTML='<span class="fpill on" data-v="ALL">Все</span>';
+  if (!ALL_TRADES.length) {
+    document.getElementById('f-bot').innerHTML = '<span class="fpill on" data-v="ALL">Все</span>';
+    document.getElementById('f-tf').innerHTML  = '<span class="fpill on" data-v="ALL">Все</span>';
     return;
   }
   const TF_ORDER = ['M1','M5','M15','M30','H1','H4','D1','W1'];
@@ -887,22 +817,26 @@ function initFilterPills() {
 function resetFilters() {
   F = {bots:new Set(['ALL']), side:'ALL', outcome:'ALL', tf:'ALL', dateFrom:'', dateTo:''};
   searchQ=''; page=0;
-  document.getElementById('date-from').value='';
-  document.getElementById('date-to').value='';
+  const dfEl = document.getElementById('date-from');
+  const dtEl = document.getElementById('date-to');
+  if (dfEl) dfEl.value='';
+  if (dtEl) dtEl.value='';
   document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.fpill[data-v="ALL"]').forEach(p=>p.classList.add('on'));
   document.querySelectorAll('.date-preset').forEach(p=>p.classList.remove('on'));
-  document.querySelector('.date-preset:last-of-type')?.classList.add('on');
-  document.getElementById('search-inp').value='';
+  const lastPreset = document.querySelector('.date-preset:last-of-type');
+  if (lastPreset) lastPreset.classList.add('on');
+  const si = document.getElementById('search-inp');
+  if (si) si.value='';
 }
 function setDatePreset(preset, ev) {
   const today = new Date();
   const fmtDot = d => d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');
   let from='', to='';
-  if (preset==='today')     { from=to=fmtDot(today); }
+  if (preset==='today')          { from=to=fmtDot(today); }
   else if (preset==='yesterday') { const y=new Date(today); y.setDate(y.getDate()-1); from=to=fmtDot(y); }
-  else if (preset==='7d')   { const d=new Date(today); d.setDate(d.getDate()-7); from=fmtDot(d); to=fmtDot(today); }
-  else if (preset==='30d')  { const d=new Date(today); d.setDate(d.getDate()-30); from=fmtDot(d); to=fmtDot(today); }
+  else if (preset==='7d')        { const d=new Date(today); d.setDate(d.getDate()-7); from=fmtDot(d); to=fmtDot(today); }
+  else if (preset==='30d')       { const d=new Date(today); d.setDate(d.getDate()-30); from=fmtDot(d); to=fmtDot(today); }
   document.getElementById('date-from').value = from.replace(/\./g,'-');
   document.getElementById('date-to').value   = to.replace(/\./g,'-');
   F.dateFrom=from; F.dateTo=to;
@@ -918,13 +852,13 @@ function onDateChange() {
 function onSearch() { searchQ=document.getElementById('search-inp').value; page=0; applyFilters(); }
 
 function applyFilters() {
-  if(!ALL_TRADES.length){
-    filteredTrades=[];
-    updateKPIs();updateEqChart();updateOutcomeChart();
-    renderBotTable();renderSideCmp();renderTFCmp();
-    renderHourlyHeatmap();renderDOWHeatmap();renderSessionCards();
-    renderPatternTable();renderTradeTable();updateCalcCards();
-    document.getElementById('f-count').textContent='0 сделок';
+  if (!ALL_TRADES.length) {
+    filteredTrades = [];
+    updateKPIs(); updateEqChart(); updateOutcomeChart();
+    renderBotTable(); renderSideCmp(); renderTFCmp();
+    renderHourlyHeatmap(); renderDOWHeatmap(); renderSessionCards();
+    renderPatternTable(); renderTradeTable(); updateCalcCards();
+    document.getElementById('f-count').textContent = '0 сделок';
     return;
   }
   const botAll = F.bots.has('ALL');
@@ -950,12 +884,9 @@ function applyFilters() {
   updateCompareNote();
 }
 function updateCompareNote() {
-  const el=document.getElementById('compare-note'), el2=document.getElementById('compare-note-eq');
+  const el=document.getElementById('compare-note');
   const multi = !F.bots.has('ALL') && F.bots.size>1;
-  if (el)  { el.style.display=multi?'':'none'; if(multi) el.textContent='↳ Сравнение: '+[...F.bots].join(' vs '); }
-  if (el2) el2.textContent = multi?'(режим сравнения)':'';
-  const ctabCmp = document.getElementById('ctab-compare');
-  if (ctabCmp) ctabCmp.classList.toggle('hidden', !multi);
+  if (el) { el.style.display=multi?'':'none'; if(multi) el.textContent='↳ Сравнение: '+[...F.bots].join(' vs '); }
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1064,7 +995,6 @@ function setKPI(id,val,sub,color,arrow){
 function updateKPIs(){
   const s=calcStats(filteredTrades);
   if(!s){
-    // Нет сделок — сброс всех KPI
     ['kpi-net','kpi-wr','kpi-pf','kpi-exp','kpi-dd','kpi-wr2',
      'kpi-avgr','kpi-best','kpi-dur','kpi-streak','kpi-gw','kpi-gl'].forEach(id=>{
       const el=document.getElementById(id);if(!el)return;
@@ -1081,31 +1011,29 @@ function updateKPIs(){
   setKPI('kpi-exp',fmtP(s.exp),'матожидание/сд',s.exp>=0?'g':'r');
   setKPI('kpi-dd','−$'+s.maxdd.toFixed(2),'пик → дно',s.maxdd<50?'g':s.maxdd<150?'a':'r');
   setKPI('kpi-wr2',s.avgW.toFixed(2)+' / '+Math.abs(s.avgL).toFixed(2),'ср.выигрыш / ср.убыток',s.avgW>Math.abs(s.avgL)?'g':'a');
-  // ext
   setKPI('kpi-avgr',s.avgR.toFixed(2),'R-мультипликатор',s.avgR>0.5?'g':s.avgR>=0?'a':'r');
   setKPI('kpi-best',fmtP(s.best),'худшая: '+fmtP(s.worst),'g');
   setKPI('kpi-dur',s.avgDur.toFixed(0)+' мин','средняя длительность','bl');
   setKPI('kpi-streak',(s.curS>0?'+':'')+s.curS,'макс: +'+s.maxWS+' / -'+s.maxLS,s.curS>0?'g':'r');
   setKPI('kpi-gw',fmtP(s.gw),'валовый выигрыш','g');
   setKPI('kpi-gl',fmtP(s.gl),'валовый убыток','r');
-  // outcome counts
   const oc={TP:0,SL:0,MANUAL:0};
   filteredTrades.forEach(t=>{if(oc[t.outcome]!==undefined)oc[t.outcome]++;});
   setText('out-tp',oc.TP);setText('out-sl',oc.SL);setText('out-man',oc.MANUAL);
 }
 
 // ══════════════════════════════════════════════════════════════
-// CHART SETUP
+// CHARTS
 // ══════════════════════════════════════════════════════════════
 Chart.defaults.color='#7d8899';
 Chart.defaults.borderColor='rgba(255,255,255,.07)';
-Chart.defaults.font.family="'JetBrains Mono',monospace";
+Chart.defaults.font.family="'JetBrains Mono', monospace";
 Chart.defaults.font.size=10;
 
 const BOT_COLORS={FX:'#20c77a',GF:'#f0604a',SMC:'#4a9ff5',EB:'#f4a623',ISHA:'#9b8ff7',PIP:'#2ecfcf',RVG:'#ff6b9d',ZS:'#ff9966',MLNR:'#a0c4ff'};
 function bc(bot){return BOT_COLORS[bot]||'#b0b8cc';}
 
-let chartEq, chartOutcome, chartR, chartScatter, testerChartEq;
+let chartEq, chartOutcome, chartR, chartScatter;
 let eqMode='eq';
 
 function makeGrad(ctx,color,alpha1,alpha2){
@@ -1114,16 +1042,14 @@ function makeGrad(ctx,color,alpha1,alpha2){
 }
 
 function initCharts(){
-  // Equity
   chartEq = new Chart(document.getElementById('chart-eq').getContext('2d'),{
     type:'line', data:{datasets:[]},
     options:{responsive:true,maintainAspectRatio:false,animation:{duration:200},
       interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>c[0].raw?.x||'',label:c=>(c.dataset.label||'')+': $'+c.parsed.y.toFixed(2)}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>c[0]?.raw?.x||'',label:c=>(c.dataset.label||'')+': $'+c.parsed.y.toFixed(2)}}},
       scales:{x:{display:false},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{callback:v=>'$'+v.toFixed(0)}}},
       elements:{point:{radius:0,hoverRadius:4},line:{tension:.1,borderWidth:1.8}}}
   });
-  // Outcome doughnut
   chartOutcome = new Chart(document.getElementById('chart-outcome').getContext('2d'),{
     type:'doughnut',
     data:{labels:['TP','SL','Manual'],datasets:[{data:[0,0,0],
@@ -1132,7 +1058,6 @@ function initCharts(){
     options:{responsive:true,maintainAspectRatio:false,cutout:'65%',
       plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+': '+c.raw}}}}
   });
-  // R-hist
   chartR = new Chart(document.getElementById('chart-r').getContext('2d'),{
     type:'bar', data:{labels:[],datasets:[{data:[],backgroundColor:[],borderColor:[],borderWidth:1}]},
     options:{responsive:true,maintainAspectRatio:false,animation:false,
@@ -1140,7 +1065,6 @@ function initCharts(){
       scales:{x:{grid:{display:false},title:{display:true,text:'R',color:'#7d8899',font:{size:9}}},
               y:{grid:{color:'rgba(255,255,255,.04)'},title:{display:true,text:'Сд.',color:'#7d8899',font:{size:9}}}}}
   });
-  // Scatter
   chartScatter = new Chart(document.getElementById('chart-scatter').getContext('2d'),{
     type:'scatter', data:{datasets:[]},
     options:{responsive:true,maintainAspectRatio:false,animation:false,
@@ -1152,48 +1076,31 @@ function initCharts(){
 
 function updateEqChart(){
   if(!chartEq)return;
-  if(!filteredTrades.length){
-    chartEq.data={datasets:[]};chartEq.update();return;
-  }
+  if(!filteredTrades.length){ chartEq.data={datasets:[]}; chartEq.update(); return; }
   const sorted=[...filteredTrades].sort((a,b)=>a.open_time.localeCompare(b.open_time));
   chartEq.options.plugins.legend.display=false;
   let datasets;
   if(eqMode==='eq'){
     let eq=0;
     const data=sorted.map(t=>({x:t.close_time,y:r2(eq+=getProfit(t))}));
-    const ctx=document.getElementById('chart-eq').getContext('2d');
-    // Сегментная окраска: зелёный выше 0, красный ниже 0
     datasets=[{
       data,
-      borderColor: function(ctx2){
-        if(!ctx2.p0||!ctx2.p1) return '#20c77a';
-        const v0=ctx2.p0.parsed.y, v1=ctx2.p1.parsed.y;
-        // Если оба выше нуля — зелёный
-        if(v0>=0 && v1>=0) return '#20c77a';
-        // Если оба ниже нуля — красный
-        if(v0<0 && v1<0) return '#f0604a';
-        // Переход через ноль — выбираем по середине
-        return (v0+v1)/2 >= 0 ? '#20c77a' : '#f0604a';
-      },
-      segment: {
-        borderColor: function(ctx2){
+      segment:{
+        borderColor: ctx2 => {
           const v0=ctx2.p0.parsed.y, v1=ctx2.p1.parsed.y;
           if(v0>=0 && v1>=0) return '#20c77a';
           if(v0<0  && v1<0)  return '#f0604a';
           return (v0+v1)/2>=0 ? '#20c77a' : '#f0604a';
         },
-        backgroundColor: function(ctx2){
+        backgroundColor: ctx2 => {
           const v0=ctx2.p0.parsed.y, v1=ctx2.p1.parsed.y;
           const inProfit = (v0>=0 && v1>=0) || ((v0+v1)/2>=0);
-          return inProfit ? 'rgba(32,199,122,.08)' : 'rgba(240,96,74,.08)';
+          return inProfit ? 'rgba(32,199,122,.1)' : 'rgba(240,96,74,.1)';
         },
       },
-      fill: 'origin',
-      tension: 0.1,
-      borderWidth: 1.8,
-      pointRadius: 0,
-      pointHoverRadius: 4,
-      label: 'Эквити',
+      borderColor:'#20c77a',
+      fill:'origin', tension:.1, borderWidth:1.8,
+      pointRadius:0, pointHoverRadius:4, label:'Эквити',
     }];
   } else if(eqMode==='dd'){
     let eq=0,peak=0;
@@ -1213,7 +1120,7 @@ function updateEqChart(){
   chartEq.options.scales.y.title={display:true,text:eqMode==='dd'?'Просадка ($)':eqMode==='daily'?'P&L ($)':'Эквити ($)',color:eqMode==='dd'?'#f0604a':eqMode==='eq'?'#20c77a':'#7d8899',font:{size:9}};
   chartEq.update();
 }
-function switchEqMode(mode,el){eqMode=(mode==='compare'?'eq':mode);document.querySelectorAll('[data-eq]').forEach(t=>t.classList.remove('on'));el.classList.add('on');updateEqChart();}
+function switchEqMode(mode,el){eqMode=mode;document.querySelectorAll('[data-eq]').forEach(t=>t.classList.remove('on'));el.classList.add('on');updateEqChart();}
 
 function updateOutcomeChart(){
   if(!chartOutcome)return;
@@ -1287,7 +1194,7 @@ function renderBotTable(){
       +'<td class="num" style="color:'+(s.pf>=1.5?'#20c77a':s.pf>=1?'#f4a623':'#f0604a')+'">'+s.pf.toFixed(2)+'</td>'
       +'<td class="num" style="color:'+(s.exp>=0?'#20c77a':'#f0604a')+'">'+fmtP(s.exp)+'</td>'
       +'<td class="num">'+s.avgR.toFixed(2)+'</td>'
-      +(isExt?'<td class="num">'+s.avgDur.toFixed(0)+'м</td><td class="num" style="color:'+(s.maxdd>50?'#f0604a':s.maxdd>20?'#f4a623':'#20c77a')+'">'+fmtP(s.maxdd)+'</td><td class="num" style="font-size:9px">'+s.maxWS+'/'+s.maxLS+'</td>':'')
+      +(isExt?'<td class="num">'+s.avgDur.toFixed(0)+'м</td><td class="num" style="color:'+(s.maxdd>50?'#f0604a':s.maxdd>20?'#f4a623':'#20c77a')+'">−$'+s.maxdd.toFixed(2)+'</td><td class="num" style="font-size:9px">'+s.maxWS+'/'+s.maxLS+'</td>':'')
       +'<td>'+sparkSVG(spark)+'</td>'
       +'<td><span class="tag '+vt+'">'+vl+'</span></td></tr>';
   }).join('');
@@ -1295,6 +1202,10 @@ function renderBotTable(){
 function sortBotTbl(col){if(botSortCol===col)botSortDir*=-1;else{botSortCol=col;botSortDir=-1;}renderBotTable();}
 
 function renderSideCmp(){
+  if(!filteredTrades.length){
+    document.getElementById('side-cmp').innerHTML='<span class="muted" style="font-family:var(--mono);font-size:11px">Нет данных</span>';
+    return;
+  }
   const B=calcStats(filteredTrades.filter(t=>t.side==='BUY')),S=calcStats(filteredTrades.filter(t=>t.side==='SELL'));
   if(!B||!S){document.getElementById('side-cmp').innerHTML='<span class="muted" style="font-family:var(--mono);font-size:11px">Нет данных</span>';return;}
   const rows=[['Сделок',B.n,S.n,B.n,S.n],['Net P&L',fmtP(B.net),fmtP(S.net),B.net,S.net],
@@ -1341,6 +1252,11 @@ function renderHourlyHeatmap(){
   if(std)std.innerHTML=html;
 }
 function renderDOWHeatmap(){
+  if(!filteredTrades.length){
+    const el=document.getElementById('dow-heatmap');
+    if(el) el.innerHTML='<span class="muted" style="font-family:var(--mono);font-size:11px">Нет данных</span>';
+    return;
+  }
   const map={};
   filteredTrades.forEach(t=>{const k=t.dow+'_'+t.hour;if(!map[k])map[k]={net:0,n:0};map[k].net+=getProfit(t);map[k].n++;});
   const maxAbs=Math.max(...Object.values(map).map(v=>Math.abs(v.net)),1);
@@ -1385,7 +1301,7 @@ function renderPatternTable(){
   document.getElementById('pattern-tbody').innerHTML=Object.entries(pg)
     .filter(([,bt])=>bt.length>=2).map(([pat,bt])=>{const s=calcStats(bt);
       return'<tr><td><span class="tag ts">'+pat.slice(0,24)+'</span></td><td>'+s.n+'</td><td class="num" style="color:'+(s.net>=0?'#20c77a':'#f0604a')+'">'+fmtP(s.net)+'</td><td class="num">'+s.wr+'%</td><td class="num" style="color:'+(s.pf>=1?'#20c77a':'#f0604a')+'">'+s.pf.toFixed(2)+'</td><td class="num">'+fmtP(s.exp)+'</td><td class="num">'+s.avgR.toFixed(2)+'</td><td class="num">'+s.avgDur.toFixed(0)+'м</td></tr>';
-    }).sort().join('')||'<tr><td colspan="8" class="muted" style="padding:10px;font-family:var(--mono)">Нет данных</td></tr>';
+    }).join('') || '<tr><td colspan="8" class="muted" style="padding:10px;font-family:var(--mono)">Нет данных по паттернам</td></tr>';
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1419,7 +1335,6 @@ function renderTradeTable(){
       +'<td style="text-align:center">'+frag+'</td></tr>';
   }
   document.getElementById('trade-tbody').innerHTML=rows||'<tr><td colspan="17" style="text-align:center;padding:20px;font-family:var(--mono);color:var(--t3)">Нет сделок</td></tr>';
-  // pager
   let ph='';const ps=Math.max(0,page-2),pe=Math.min(maxPage,page+2);
   if(ps>0)ph+='<button onclick="goPage(0)">1</button>';
   if(ps>1)ph+='<span class="muted" style="padding:0 3px">…</span>';
@@ -1436,6 +1351,12 @@ function sortTr(key){if(trSortKey===key)trSortDir*=-1;else{trSortKey=key;trSortD
 // CALC CARDS
 // ══════════════════════════════════════════════════════════════
 function updateCalcCards(){
+  if(!filteredTrades.length){
+    document.getElementById('calc-cards').innerHTML='';
+    const tel=document.getElementById('calc-total');
+    if(tel){tel.textContent='—';tel.style.color='var(--t2)';}
+    return;
+  }
   const bots=[...new Set(filteredTrades.map(t=>t.bot))].sort();
   let totalPnL=0;
   const cards=bots.map(bot=>{
@@ -1486,7 +1407,6 @@ function switchMode(mode){
   document.querySelector('.mode-btn[data-mode="'+mode+'"]').classList.add('on');
   const ext=mode==='ext';
   document.getElementById('kpi-grid').className='kpi-grid '+(ext?'kpi-grid-ext':'kpi-grid-std');
-  document.querySelectorAll('.hidden[id^="kpi-"]').forEach(el=>el.classList.toggle('hidden',!ext));
   ['kpi-avgr','kpi-best','kpi-dur','kpi-streak','kpi-gw','kpi-gl'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.classList.toggle('hidden',!ext);
   });
@@ -1507,7 +1427,7 @@ function showTab(id){
 }
 
 // ══════════════════════════════════════════════════════════════
-// PERIOD + PERIOD LABEL
+// PERIOD LABEL
 // ══════════════════════════════════════════════════════════════
 function setPeriodLabel(){
   if(!ALL_TRADES.length){
@@ -1522,28 +1442,22 @@ function setPeriodLabel(){
   dfi.min=fr;dfi.max=tr;dti.min=fr;dti.max=tr;
 }
 
-// ══════════════════════════════════════════════════════════════
-// TESTER
-// ══════════════════════════════════════════════════════════════
-let testerData = null;
 
 // ══════════════════════════════════════════════════════════════
-//  TESTER HTML PARSER
+// TESTER HTML PARSER
 // ══════════════════════════════════════════════════════════════
 function parseTesterHtm(html) {
   const doc    = new DOMParser().parseFromString(html, 'text/html');
   const tables = doc.querySelectorAll('table');
   if (tables.length < 2) return null;
 
-  // ── 1. Parse summary from Row 4 flat list (pairs: label, value, label, value...)
-  const summaryRaw = {};
   const allRows = [...tables[0].querySelectorAll('tr')];
-  // Row 4 has the full flat list starting at index 1
+  const summaryRaw = {};
+
   const flatRow = allRows[4];
   if (flatRow) {
     const cells = [...flatRow.querySelectorAll('td')];
     const txts  = cells.map(c => c.textContent.trim());
-    // pairs from index 1
     let i = 1;
     while (i < txts.length - 1) {
       const k = txts[i], v = txts[i+1];
@@ -1551,20 +1465,20 @@ function parseTesterHtm(html) {
       i += 2;
     }
   }
-  // Also parse structured rows 5-19 for cleaner key→value
   for (let ri = 5; ri < allRows.length; ri++) {
     const cells = [...allRows[ri].querySelectorAll('td')];
     const txts  = cells.map(c => c.textContent.trim());
     for (let i = 0; i < txts.length - 1; i += 2) {
       const k = txts[i], v = txts[i+1];
-      if (k && v && !/^\s*$/.test(k) && k !== 'Самая большая' && k !== 'Средняя' && k !== 'Максимальное количество' && k !== 'Макс.' && k !== 'Средний') {
+      const skipLabels = ['Самая большая','Средняя','Максимальное количество','Макс.','Средний'];
+      if (k && v && !/^\s*$/.test(k) && !skipLabels.includes(k)) {
         summaryRaw[k] = v;
       }
     }
-    // Handle sub-label rows (e.g. "Самая большая" → "прибыльная сделка", "убыточная сделка")
     if (txts[0] && txts.length >= 3) {
       const prefix = txts[0];
-      if (['Самая большая','Средняя','Максимальное количество','Макс.','Средний'].includes(prefix)) {
+      const groupLabels = ['Самая большая','Средняя','Максимальное количество','Макс.','Средний'];
+      if (groupLabels.includes(prefix)) {
         for (let i = 1; i < txts.length - 1; i += 2) {
           if (txts[i] && txts[i+1]) summaryRaw[prefix + ' ' + txts[i]] = txts[i+1];
         }
@@ -1572,9 +1486,8 @@ function parseTesterHtm(html) {
     }
   }
 
-  // ── 2. Parse params from Row 3
   const paramsRow = allRows[3];
-  let paramsRaw = paramsRow ? paramsRow.querySelector('td')?.textContent || '' : '';
+  let paramsRaw = paramsRow ? (paramsRow.querySelector('td') ? paramsRow.querySelector('td').textContent : '') : '';
 
   const KEY_MAP = {
     'РазмерЛота':'Лот','ПроцентРиска':'% риска',
@@ -1588,58 +1501,56 @@ function parseTesterHtm(html) {
     'ФильтрПоТренду':'Фильтр тренда','РежимВремени':'Режим времени',
     'РежимБезубытка':'Безубыток','МаксПросадка':'Макс просадка %',
     'МаксПроскальзывание':'Проскальзывание','МинимальныйRR':'Мин RR',
-    'ПериодСвинга':'Период свинга','МножительATR_Близость':'Мн. ATR',
-    'РежимТП':'Режим TP','МножительТП':'Множитель TP',
-    'РежимЗащитыSL':'Режим защиты SL','СпособРасчётаSL':'Расчёт SL',
-    'ТипСигнала':'Тип сигнала','РежимПодтверждения':'Подтверждение',
-    'ВключитьЗащитуДепозита':'Защита депозита',
+    'ПериодСвинга':'Период свинга',
   };
   const params = {};
-  for (const [key, label] of Object.entries(KEY_MAP)) {
+  for (const key in KEY_MAP) {
+    const label = KEY_MAP[key];
     const rx = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '=([^;\\n]+?)(?:;|\\n|$)');
     const m  = paramsRaw.match(rx);
     if (m) params[label] = m[1].trim().replace(/"/g,'');
   }
-  if (!Object.keys(params).length) {
-    const pairs = [...paramsRaw.matchAll(/([A-Za-zА-ЯЁа-яё_]\w*)=([^;,\n"]+)/g)];
-    pairs.slice(0,30).forEach(([,k,v]) => { if(v.trim()) params[k] = v.trim(); });
+  if (Object.keys(params).length === 0) {
+    const pairs = [];
+    const re = /([A-Za-zА-ЯЁа-яё_]\w*)=([^;,\n"]+)/g;
+    let mm;
+    while ((mm = re.exec(paramsRaw)) !== null) pairs.push([mm[1], mm[2]]);
+    pairs.slice(0,30).forEach(p => { if (p[1].trim() && !params[p[0]]) params[p[0]] = p[1].trim(); });
   }
 
-  // ── 3. Build structured summary object from summaryRaw
   const pf = v => parseFloat((v||'').replace(/[^\d.\-]/g,'')) || 0;
   const summary_mt4 = {
-    'Баров в истории':                        summaryRaw['Баров в истории'] || '',
-    'Смоделировано тиков':                    summaryRaw['Смоделировано тиков'] || '',
-    'Качество моделирования':                 summaryRaw['Качество моделирования'] || '',
-    'Ошибки рассогласования':                 summaryRaw['Ошибки рассогласования графиков'] || '0',
-    'Начальный депозит':                      summaryRaw['Начальный депозит'] || '',
-    'Спред':                                  summaryRaw['Спред'] || '',
-    'Чистая прибыль':                         summaryRaw['Чистая прибыль'] || '',
-    'Общая прибыль':                          summaryRaw['Общая прибыль'] || '',
-    'Общий убыток':                           summaryRaw['Общий убыток'] || '',
-    'Прибыльность':                           summaryRaw['Прибыльность'] || '',
-    'Матожидание выигрыша':                   summaryRaw['Матожидание выигрыша'] || '',
-    'Абсолютная просадка':                    summaryRaw['Абсолютная просадка'] || '',
-    'Максимальная просадка':                  summaryRaw['Максимальная просадка'] || '',
-    'Относительная просадка':                 summaryRaw['Относительная просадка'] || '',
-    'Всего сделок':                           summaryRaw['Всего сделок'] || '',
-    'Короткие позиции':                       summaryRaw['Короткие позиции (% выигравших)'] || '',
-    'Длинные позиции':                        summaryRaw['Длинные позиции (% выигравших)'] || '',
-    'Прибыльные сделки':                      summaryRaw['Прибыльные сделки (% от всех)'] || '',
-    'Убыточные сделки':                       summaryRaw['Убыточные сделки (% от всех)'] || '',
-    'Самая большая прибыльная сделка':        summaryRaw['Самая большая прибыльная сделка'] || '',
-    'Самая большая убыточная сделка':         summaryRaw['Самая большая убыточная сделка'] || '',
-    'Средняя прибыльная сделка':              summaryRaw['Средняя прибыльная сделка'] || '',
-    'Средняя убыточная сделка':               summaryRaw['Средняя убыточная сделка'] || '',
-    'Макс. непрерывных выигрышей':            summaryRaw['Максимальное количество непрерывных выигрышей (прибыль)'] || '',
-    'Макс. непрерывных проигрышей':           summaryRaw['Максимальное количество непрерывных проигрышей (убыток)'] || '',
-    'Макс. непрерывная прибыль':              summaryRaw['Макс. непрерывная прибыль (число выигрышей)'] || '',
-    'Макс. непрерывный убыток':               summaryRaw['Макс. непрерывный убыток (число проигрышей)'] || '',
-    'Средний непрерывный выигрыш':            summaryRaw['Средний непрерывный выигрыш'] || '',
-    'Средний непрерывный проигрыш':           summaryRaw['Средний непрерывный проигрыш'] || '',
+    'Баров в истории':                 summaryRaw['Баров в истории'] || '',
+    'Смоделировано тиков':             summaryRaw['Смоделировано тиков'] || '',
+    'Качество моделирования':          summaryRaw['Качество моделирования'] || '',
+    'Ошибки рассогласования':          summaryRaw['Ошибки рассогласования графиков'] || '0',
+    'Начальный депозит':               summaryRaw['Начальный депозит'] || '',
+    'Спред':                           summaryRaw['Спред'] || '',
+    'Чистая прибыль':                  summaryRaw['Чистая прибыль'] || '',
+    'Общая прибыль':                   summaryRaw['Общая прибыль'] || '',
+    'Общий убыток':                    summaryRaw['Общий убыток'] || '',
+    'Прибыльность':                    summaryRaw['Прибыльность'] || '',
+    'Матожидание выигрыша':            summaryRaw['Матожидание выигрыша'] || '',
+    'Абсолютная просадка':             summaryRaw['Абсолютная просадка'] || '',
+    'Максимальная просадка':           summaryRaw['Максимальная просадка'] || '',
+    'Относительная просадка':          summaryRaw['Относительная просадка'] || '',
+    'Всего сделок':                    summaryRaw['Всего сделок'] || '',
+    'Короткие позиции':                summaryRaw['Короткие позиции (% выигравших)'] || '',
+    'Длинные позиции':                 summaryRaw['Длинные позиции (% выигравших)'] || '',
+    'Прибыльные сделки':               summaryRaw['Прибыльные сделки (% от всех)'] || '',
+    'Убыточные сделки':                summaryRaw['Убыточные сделки (% от всех)'] || '',
+    'Самая большая прибыльная сделка': summaryRaw['Самая большая прибыльная сделка'] || '',
+    'Самая большая убыточная сделка':  summaryRaw['Самая большая убыточная сделка'] || '',
+    'Средняя прибыльная сделка':       summaryRaw['Средняя прибыльная сделка'] || '',
+    'Средняя убыточная сделка':        summaryRaw['Средняя убыточная сделка'] || '',
+    'Макс. непрерывных выигрышей':     summaryRaw['Максимальное количество непрерывных выигрышей (прибыль)'] || '',
+    'Макс. непрерывных проигрышей':    summaryRaw['Максимальное количество непрерывных проигрышей (убыток)'] || '',
+    'Макс. непрерывная прибыль':       summaryRaw['Макс. непрерывная прибыль (число выигрышей)'] || '',
+    'Макс. непрерывный убыток':        summaryRaw['Макс. непрерывный убыток (число проигрышей)'] || '',
+    'Средний непрерывный выигрыш':     summaryRaw['Средний непрерывный выигрыш'] || '',
+    'Средний непрерывный проигрыш':    summaryRaw['Средний непрерывный проигрыш'] || '',
   };
 
-  // ── 4. Numeric summary for comparison table
   const depStr  = (summaryRaw['Начальный депозит'] || '1000').replace(/[^\d.]/g,'');
   const deposit = parseFloat(depStr) || 1000;
   const net_pnl = pf(summaryRaw['Чистая прибыль']);
@@ -1650,13 +1561,11 @@ function parseTesterHtm(html) {
   const abs_dd  = pf(summaryRaw['Абсолютная просадка']);
   const total   = parseInt(summaryRaw['Всего сделок']) || 0;
 
-  // Max DD: "722.10 (71.72%)"
   const maxDDStr = summaryRaw['Максимальная просадка'] || '';
   const maxDDm   = maxDDStr.match(/([\d.]+)\s*\(([\d.]+)%\)/);
   const max_dd      = maxDDm ? parseFloat(maxDDm[1]) : abs_dd;
   const max_dd_pct  = maxDDm ? parseFloat(maxDDm[2]) : 0;
 
-  // Win/loss counts from "12 (0.00%)"
   const shortStr = summaryRaw['Короткие позиции (% выигравших)'] || '';
   const longStr  = summaryRaw['Длинные позиции (% выигравших)']  || '';
   const profStr  = summaryRaw['Прибыльные сделки (% от всех)']   || '';
@@ -1667,13 +1576,11 @@ function parseTesterHtm(html) {
   const lossN  = parseInt(lossStr)  || 0;
   const wr     = total ? Math.round(profN / total * 1000) / 10 : 0;
 
-  // Short/long WR from "12 (0.00%)" → 0.00%
   const shortWRm = shortStr.match(/\(([\d.]+)%\)/);
   const longWRm  = longStr.match(/\(([\d.]+)%\)/);
   const shortWR  = shortWRm ? parseFloat(shortWRm[1]) : 0;
   const longWR   = longWRm  ? parseFloat(longWRm[1])  : 0;
 
-  // Streak
   const maxLossStreakStr = summaryRaw['Максимальное количество непрерывных проигрышей (убыток)'] || '';
   const maxLSm = maxLossStreakStr.match(/^(\d+)/);
   const maxLS  = maxLSm ? parseInt(maxLSm[1]) : 0;
@@ -1681,27 +1588,24 @@ function parseTesterHtm(html) {
   const maxWSm = maxWinStreakStr.match(/^(\d+)/);
   const maxWS  = maxWSm ? parseInt(maxWSm[1]) : 0;
 
-  // ── 5. Header
+  const firstTd = doc.querySelector('td');
   const header = {
-    symbol:  (summaryRaw['Символ'] || doc.querySelector('td')?.textContent || 'XAUUSD').split('(')[0].trim(),
-    period:  (summaryRaw['Период'] || allRows[1]?.querySelector('td')?.textContent || '').slice(0, 80),
+    symbol:  (summaryRaw['Символ'] || (firstTd ? firstTd.textContent : '') || 'XAUUSD').split('(')[0].trim(),
+    period:  (summaryRaw['Период'] || (allRows[1] && allRows[1].querySelector('td') ? allRows[1].querySelector('td').textContent : '')).slice(0, 80),
     deposit: deposit.toFixed(2),
     spread:  summaryRaw['Спред'] || '',
     bars:    summaryRaw['Баров в истории'] || '',
     ticks:   summaryRaw['Смоделировано тиков'] || '',
-    model:   (summaryRaw['Модель'] || (allRows[2]?.querySelector('td')?.textContent || '')).slice(0,50),
-    quality: summaryRaw['Качество моделирования'] || '',
   };
 
-  // ── 6. Parse trades
   function calcRM(op, sl, cp, profit) {
     if (!sl || !op) return 0;
-    const risk = Math.abs(op-sl), rew = Math.abs(cp-op);
-    return Math.round((rew/risk||0) * (profit>=0?1:-1) * 100) / 100;
+    const risk = Math.abs(op - sl), rew = Math.abs(cp - op);
+    return Math.round((rew/risk || 0) * (profit >= 0 ? 1 : -1) * 100) / 100;
   }
   function inferOut(sl, tp, cp, profit) {
-    if (tp && Math.abs(cp-tp) <= 0.25) return 'TP';
-    if (sl && Math.abs(cp-sl) <= 0.25) return 'SL';
+    if (tp && Math.abs(cp - tp) <= 0.25) return 'TP';
+    if (sl && Math.abs(cp - sl) <= 0.25) return 'SL';
     return profit > 0 ? 'TP' : 'SL';
   }
 
@@ -1714,28 +1618,38 @@ function parseTesterHtm(html) {
     if (!/^\d+$/.test(vals[0])) continue;
     const typ = vals[2].toLowerCase(), order = vals[3];
     if (typ === 'buy' || typ === 'sell') {
-      openMap[order] = {order, open_time:vals[1], type:typ.toUpperCase(),
-        vol: parseFloat(vals[4])||0.01, open_p:parseFloat(vals[5])||0,
-        sl: parseFloat(vals[6])||0, tp: parseFloat(vals[7])||0};
+      openMap[order] = {
+        order, open_time: vals[1], type: typ.toUpperCase(),
+        vol:  parseFloat(vals[4]) || 0.01,
+        open_p: parseFloat(vals[5]) || 0,
+        sl:     parseFloat(vals[6]) || 0,
+        tp:     parseFloat(vals[7]) || 0,
+      };
     } else if (typ === 'close' && openMap[order]) {
       const o = openMap[order]; delete openMap[order];
       try {
-        const profit  = parseFloat(vals[8])||0;
-        const balance = parseFloat(vals[9])||0;
-        const cp      = parseFloat(vals[5])||0;
+        const profit  = parseFloat(vals[8]) || 0;
+        const balance = parseFloat(vals[9]) || 0;
+        const close_p = parseFloat(vals[5]) || 0;
         const od = new Date(o.open_time.replace(/\./g,'-').replace(' ','T'));
         const cd = new Date(vals[1].replace(/\./g,'-').replace(' ','T'));
-        trades.push({order, open_time:o.open_time, close_time:vals[1], type:o.type,
-          vol:o.vol, open_p:o.open_p, close_p:cp, sl:o.sl, tp:o.tp,
-          profit, balance, dur: Math.round((cd-od)/60000*10)/10,
-          r_mult: calcRM(o.open_p, o.sl, cp, profit),
-          outcome: inferOut(o.sl, o.tp, cp, profit),
-          date: o.open_time.slice(0,10), hour: parseInt(o.open_time.slice(11,13))||0,
-          dow: (od.getDay()+6)%7,
+        const dur = Math.round((cd - od) / 60000 * 10) / 10;
+        trades.push({
+          order, open_time: o.open_time, close_time: vals[1],
+          type: o.type, vol: o.vol,
+          open_p: o.open_p, close_p, sl: o.sl, tp: o.tp,
+          profit, balance, dur,
+          r_mult:  calcRM(o.open_p, o.sl, close_p, profit),
+          outcome: inferOut(o.sl, o.tp, close_p, profit),
+          date: o.open_time.slice(0,10),
+          hour: parseInt(o.open_time.slice(11,13)) || 0,
+          dow:  (od.getDay() + 6) % 7,
         });
       } catch(e) {}
     }
   }
+
+  if (!trades.length) return null;
 
   const r2 = v => Math.round(v*100)/100;
   const daily = {};
@@ -1748,9 +1662,9 @@ function parseTesterHtm(html) {
   });
 
   function ss(lst) {
-    if (!lst.length) return {n:0,net:0,wr:0,avg_win:0,avg_loss:0};
-    const ps = lst.map(t=>t.profit);
-    const ws = ps.filter(p=>p>0), ls = ps.filter(p=>p<0);
+    if (!lst.length) return {n:0, net:0, wr:0, avg_win:0, avg_loss:0};
+    const ps = lst.map(t => t.profit);
+    const ws = ps.filter(p => p>0), ls = ps.filter(p => p<0);
     const mean = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : 0;
     return {n:lst.length, net:r2(ps.reduce((a,b)=>a+b,0)),
       wr: r2(ws.length/ps.length*100), avg_win:r2(mean(ws)), avg_loss:r2(mean(ls))};
@@ -1765,17 +1679,17 @@ function parseTesterHtm(html) {
       win_rate: wr, total_trades: total, wins: profN, losses: lossN,
       max_dd: r2(max_dd), max_dd_pct: r2(max_dd_pct),
       abs_dd: r2(abs_dd),
-      avg_win:  r2(pf(summaryRaw['Средняя прибыльная сделка'] || summaryRaw['Средняя прибыльная сделка'])),
+      avg_win:  r2(pf(summaryRaw['Средняя прибыльная сделка'])),
       avg_loss: r2(pf(summaryRaw['Средняя убыточная сделка'])),
-      best_trade:  r2(pf(summaryRaw['Самая большая прибыльная сделка'] || '')),
-      worst_trade: r2(pf(summaryRaw['Самая большая убыточная сделка'] || '')),
+      best_trade:  r2(pf(summaryRaw['Самая большая прибыльная сделка'])),
+      worst_trade: r2(pf(summaryRaw['Самая большая убыточная сделка'])),
       final_balance: trades.length ? r2(trades[trades.length-1].balance) : deposit,
       short_n: shortN, short_wr: shortWR, long_n: longN, long_wr: longWR,
       max_win_streak: maxWS, max_loss_streak: maxLS,
     },
     trades,
     equity_curve: trades.map(t => [t.close_time, t.balance]),
-    daily: Object.entries(daily).sort().map(([d,v]) => [d, r2(v)]),
+    daily: Object.keys(daily).sort().map(d => [d, r2(daily[d])]),
     hourly,
     buy_stats:  ss(trades.filter(t => t.type==='BUY')),
     sell_stats: ss(trades.filter(t => t.type==='SELL')),
@@ -1783,74 +1697,30 @@ function parseTesterHtm(html) {
   };
 }
 
-
-
 // ══════════════════════════════════════════════════════════════
-//  TESTER — MULTI-RUN COMPARISON
+// TESTER — MULTI-RUN COMPARISON
 // ══════════════════════════════════════════════════════════════
-let RUNS = [];           // [{id, name, color, data}]
-let activeRunId = null;  // currently expanded run
+let RUNS = [];
+let activeRunId = null;
 let runsChartMode = 'balance';
 let runsChart = null;
 
 const RUN_COLORS = ['#20c77a','#4a9ff5','#f4a623','#9b8ff7','#f0604a',
                     '#2ecfcf','#ff6b9d','#ff9966','#a0c4ff','#b0b8cc'];
 
-// File input
-document.addEventListener('DOMContentLoaded', function(){
-  const inp = document.getElementById('tester-add-input');
-  if(inp) inp.addEventListener('change', function(e){
-    const files = [...e.target.files];
-    files.forEach(f => loadRunFile(f));
-    this.value = '';
-  });
-  // Init empty runs chart
-  const ctx = document.getElementById('tester-compare-chart');
-  if(ctx) {
-    runsChart = new Chart(ctx.getContext('2d'), {
-      type: 'line',
-      data: {datasets: []},
-      options: {
-        responsive: true, maintainAspectRatio: false, animation: false,
-        interaction: {mode: 'index', intersect: false},
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-            labels: {boxWidth: 10, padding: 12, font: {size: 10},
-                     color: '#b8c0d0', usePointStyle: true}
-          },
-          tooltip: {
-            callbacks: {
-              title: c => c[0]?.raw?.x || '',
-              label: c => ' ' + c.dataset.label + ': $' + c.parsed.y.toFixed(2)
-            }
-          }
-        },
-        scales: {
-          x: {display: false},
-          y: {grid: {color: 'rgba(255,255,255,.04)'},
-              ticks: {callback: v => '$' + v.toFixed(0)}}
-        },
-        elements: {point: {radius: 0, hoverRadius: 4}, line: {tension: .2, borderWidth: 1.8}}
-      }
-    });
-  }
-});
-
 function loadRunFile(file) {
   const reader = new FileReader();
-  reader.onload = ev => {
+  reader.onload = function(ev) {
     try {
       const td = parseTesterHtm(ev.target.result);
-      if(!td || !td.trades.length) {
+      if (!td || !td.trades.length) {
         alert('Не удалось распознать отчёт тестера: ' + file.name);
         return;
       }
       const id    = Date.now() + Math.random();
       const color = RUN_COLORS[RUNS.length % RUN_COLORS.length];
       const name  = file.name.replace(/\.htm[l]?$/i, '').slice(0, 40);
-      RUNS.push({id, name, color, data: td});
+      RUNS.push({id: id, name: name, color: color, data: td});
       renderRunsUI();
     } catch(err) {
       alert('Ошибка парсинга ' + file.name + ': ' + err.message);
@@ -1860,15 +1730,15 @@ function loadRunFile(file) {
 }
 
 function clearAllRuns() {
-  if(RUNS.length && !confirm('Удалить все запуски?')) return;
+  if (RUNS.length && !confirm('Удалить все запуски?')) return;
   RUNS = []; activeRunId = null;
   renderRunsUI();
 }
 
 function removeRun(id, ev) {
   ev.stopPropagation();
-  RUNS = RUNS.filter(r => r.id !== id);
-  if(activeRunId === id) activeRunId = null;
+  RUNS = RUNS.filter(function(r){ return r.id !== id; });
+  if (activeRunId === id) activeRunId = null;
   renderRunsUI();
 }
 
@@ -1879,43 +1749,38 @@ function toggleRunDetail(id) {
 
 function switchRunsChart(mode, el) {
   runsChartMode = mode;
-  document.querySelectorAll('#tester-runs-content .ctab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('#tester-runs-content .ctab').forEach(function(t){ t.classList.remove('on'); });
   el.classList.add('on');
   updateRunsChart();
 }
 
-// ── RENDER ALL ──────────────────────────────────────────────────
 function renderRunsUI() {
   const hasRuns = RUNS.length > 0;
-  document.getElementById('tester-empty-state').style.display   = hasRuns ? 'none' : '';
-  document.getElementById('tester-runs-content').style.display  = hasRuns ? '' : 'none';
-  if(!hasRuns) {
+  document.getElementById('tester-empty-state').style.display  = hasRuns ? 'none' : '';
+  document.getElementById('tester-runs-content').style.display = hasRuns ? '' : 'none';
+  if (!hasRuns) {
     document.getElementById('tester-run-count').textContent = '';
     return;
   }
-  document.getElementById('tester-run-count').textContent = RUNS.length + ' ' +
-    (RUNS.length === 1 ? 'запуск' : RUNS.length < 5 ? 'запуска' : 'запусков');
+  const countEl = document.getElementById('tester-run-count');
+  countEl.textContent = RUNS.length + ' ' + (RUNS.length === 1 ? 'запуск' : RUNS.length < 5 ? 'запуска' : 'запусков');
 
-  // Find best run per metric for highlighting
   const best = {
-    net:    Math.max(...RUNS.map(r => r.data.summary.net_pnl)),
-    wr:     Math.max(...RUNS.map(r => r.data.summary.win_rate)),
-    pf:     Math.max(...RUNS.map(r => r.data.summary.profit_factor)),
-    exp:    Math.max(...RUNS.map(r => r.data.summary.expectancy)),
-    dd:     Math.min(...RUNS.map(r => r.data.summary.max_dd)),
-    trades: Math.max(...RUNS.map(r => r.data.summary.total_trades)),
+    net:    Math.max.apply(null, RUNS.map(function(r){ return r.data.summary.net_pnl; })),
+    pf:     Math.max.apply(null, RUNS.map(function(r){ return r.data.summary.profit_factor; })),
+    dd:     Math.min.apply(null, RUNS.map(function(r){ return r.data.summary.max_dd; })),
   };
 
-  // Build diff params (params that differ across runs)
-  const allParamKeys = [...new Set(RUNS.flatMap(r => Object.keys(r.data.params)))];
-  const diffParams = allParamKeys.filter(k => {
-    const vals = new Set(RUNS.map(r => r.data.params[k] || ''));
+  const allParamKeys = [];
+  RUNS.forEach(function(r){ Object.keys(r.data.params).forEach(function(k){ if(allParamKeys.indexOf(k)<0) allParamKeys.push(k); }); });
+  const diffParams = allParamKeys.filter(function(k){
+    const vals = new Set(RUNS.map(function(r){ return r.data.params[k] || ''; }));
     return vals.size > 1;
   });
 
-  // Render rows
   const listEl = document.getElementById('tester-run-list');
-  listEl.innerHTML = RUNS.map(({id, name, color, data: td}) => {
+  listEl.innerHTML = RUNS.map(function(run) {
+    const id = run.id, name = run.name, color = run.color, td = run.data;
     const s = td.summary;
     const isActive = activeRunId === id;
     const isBestNet = s.net_pnl === best.net;
@@ -1928,68 +1793,61 @@ function renderRunsUI() {
     const wrCls  = s.win_rate >= 60 ? 'pos' : s.win_rate >= 50 ? 'amb' : 'neg';
     const expCls = s.expectancy >= 0 ? 'pos' : 'neg';
 
-    // Key differing params
-    const diffStr = diffParams.slice(0,4).map(k => {
+    const diffStr = diffParams.slice(0,4).map(function(k){
       const v = td.params[k];
       return v ? k + '=' + v : '';
     }).filter(Boolean).join(' · ');
 
-    const bestMark = (isBest) => isBest ? ' ★' : '';
+    const bestMarkNet = isBestNet ? ' ★' : '';
+    const bestMarkPF  = isBestPF  ? ' ★' : '';
+    const bestMarkDD  = isBestDD  ? ' ★' : '';
 
-    const detailHtml = isActive ? `
-      <div class="run-detail open" onclick="event.stopPropagation()">
-        ${renderRunDetail(id)}
-      </div>` : '';
+    const detailHtml = isActive
+      ? '<div class="run-detail open" onclick="event.stopPropagation()">' + renderRunDetail(id) + '</div>'
+      : '';
 
-    return `<div>
-      <div class="run-row ${isActive ? 'active' : ''}" onclick="toggleRunDetail(${id})">
-        <div class="run-color" style="background:${color}"></div>
-        <div class="run-cell" style="min-width:140px;font-weight:500;color:var(--tx)">${name}</div>
-        <div class="run-cell ${netCls}" style="min-width:90px">${s.net_pnl >= 0 ? '+$' : '-$'}${Math.abs(s.net_pnl).toFixed(2)}${bestMark(isBestNet)}</div>
-        <div class="run-cell ${wrCls}" style="min-width:70px">${s.win_rate}%</div>
-        <div class="run-cell ${pfCls}" style="min-width:60px">${s.profit_factor.toFixed(2)}${bestMark(isBestPF)}</div>
-        <div class="run-cell ${expCls}" style="min-width:80px">${s.expectancy >= 0 ? '+$' : '-$'}${Math.abs(s.expectancy).toFixed(2)}</div>
-        <div class="run-cell ${ddCls}" style="min-width:80px">−$${s.max_dd.toFixed(2)} (${s.max_dd_pct.toFixed(1)}%)${bestMark(isBestDD)}</div>
-        <div class="run-cell" style="min-width:55px">${s.total_trades}</div>
-        <div class="run-cell pos" style="min-width:65px">+$${s.best_trade.toFixed(2)}</div>
-        <div class="run-cell neg" style="min-width:65px">−$${Math.abs(s.worst_trade).toFixed(2)}</div>
-        <div class="run-cell ${td.buy_stats.wr >= 50 ? 'pos' : 'neg'}" style="min-width:60px">${td.buy_stats.wr || 0}%</div>
-        <div class="run-cell ${td.sell_stats.wr >= 50 ? 'pos' : 'neg'}" style="min-width:65px">${td.sell_stats.wr || 0}%</div>
-        <div class="run-cell" style="flex:1;font-size:9px;color:var(--t3)">${diffStr || '—'}</div>
-        <div class="run-cell" style="min-width:36px;text-align:center">
-          <button type="button" onclick="removeRun(${id},event)"
-            style="background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:13px;padding:2px 4px">✕</button>
-        </div>
-      </div>
-      ${detailHtml}
-    </div>`;
+    return '<div>'
+      + '<div class="run-row ' + (isActive?'active':'') + '" onclick="toggleRunDetail(' + id + ')">'
+      +   '<div class="run-color" style="background:' + color + '"></div>'
+      +   '<div class="run-cell" style="min-width:140px;font-weight:500;color:var(--tx)">' + name + '</div>'
+      +   '<div class="run-cell ' + netCls + '" style="min-width:90px">' + (s.net_pnl>=0?'+$':'-$') + Math.abs(s.net_pnl).toFixed(2) + bestMarkNet + '</div>'
+      +   '<div class="run-cell ' + wrCls + '" style="min-width:70px">' + s.win_rate + '%</div>'
+      +   '<div class="run-cell ' + pfCls + '" style="min-width:60px">' + s.profit_factor.toFixed(2) + bestMarkPF + '</div>'
+      +   '<div class="run-cell ' + expCls + '" style="min-width:80px">' + (s.expectancy>=0?'+$':'-$') + Math.abs(s.expectancy).toFixed(2) + '</div>'
+      +   '<div class="run-cell ' + ddCls + '" style="min-width:90px">−$' + s.max_dd.toFixed(2) + ' (' + s.max_dd_pct.toFixed(1) + '%)' + bestMarkDD + '</div>'
+      +   '<div class="run-cell" style="min-width:55px">' + s.total_trades + '</div>'
+      +   '<div class="run-cell pos" style="min-width:65px">+$' + s.best_trade.toFixed(2) + '</div>'
+      +   '<div class="run-cell neg" style="min-width:65px">−$' + Math.abs(s.worst_trade).toFixed(2) + '</div>'
+      +   '<div class="run-cell ' + (td.buy_stats.wr>=50?'pos':'neg') + '" style="min-width:60px">' + (td.buy_stats.wr||0) + '%</div>'
+      +   '<div class="run-cell ' + (td.sell_stats.wr>=50?'pos':'neg') + '" style="min-width:65px">' + (td.sell_stats.wr||0) + '%</div>'
+      +   '<div class="run-cell" style="flex:1;font-size:9px;color:var(--t3)">' + (diffStr || '—') + '</div>'
+      +   '<div class="run-cell" style="min-width:36px;text-align:center">'
+      +     '<button type="button" onclick="removeRun(' + id + ',event)" style="background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:13px;padding:2px 4px">✕</button>'
+      +   '</div>'
+      + '</div>'
+      + detailHtml
+      + '</div>';
   }).join('');
 
   updateRunsChart();
-
-  // Detail panel visibility
   document.getElementById('tester-detail-panel').style.display = activeRunId ? '' : 'none';
 }
 
 function renderRunDetail(id) {
-  const run = RUNS.find(r => r.id === id);
-  if(!run) return '';
+  const run = RUNS.filter(function(r){ return r.id === id; })[0];
+  if (!run) return '';
   const td = run.data;
   const s  = td.summary;
-
-  // Full MT4 summary grid
-  const s = td.summary;
   const mt4 = td.summary_mt4 || {};
-  
-  // Color helper
-  const numColor = (v, goodIfPos=true) => {
+
+  function numColor(v, goodIfPos) {
+    if (goodIfPos === undefined) goodIfPos = true;
     const n = parseFloat(String(v).replace(/[^\d.\-]/g,''));
     if (isNaN(n)) return 'var(--t2)';
     return goodIfPos ? (n > 0 ? '#20c77a' : n < 0 ? '#f0604a' : 'var(--t2)')
-                     : (n < 0 ? '#20c77a' : n > 0 ? '#f0604a' : 'var(--t2)');
-  };
+                      : (n < 0 ? '#20c77a' : n > 0 ? '#f0604a' : 'var(--t2)');
+  }
 
-  // MT4 summary sections
   const mt4Sections = [
     {title:'Общее', rows:[
       ['Символ', td.header.symbol],
@@ -2036,157 +1894,130 @@ function renderRunDetail(id) {
     ]},
   ];
 
-  const mt4SummaryHtml = mt4Sections.map(sec => {
-    const rowsHtml = sec.rows.filter(r => r[1]).map(([k, v, color]) =>
-      `<div class="param-row">
-        <span class="param-key">${k}</span>
-        <span class="param-val" style="color:${color||'var(--tx)'}">${v}</span>
-      </div>`
-    ).join('');
+  const mt4SummaryHtml = mt4Sections.map(function(sec) {
+    const rowsHtml = sec.rows.filter(function(r){ return r[1]; }).map(function(r) {
+      const k = r[0], v = r[1], color = r[2];
+      return '<div class="param-row"><span class="param-key">' + k + '</span><span class="param-val" style="color:' + (color||'var(--tx)') + '">' + v + '</span></div>';
+    }).join('');
     if (!rowsHtml) return '';
-    return `<div style="margin-bottom:8px">
-      <div style="font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;
-        letter-spacing:.07em;margin-bottom:4px;padding-bottom:3px;border-bottom:.5px solid var(--b1)">
-        ${sec.title}</div>
-      <div class="params-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
-        ${rowsHtml}
-      </div>
-    </div>`;
+    return '<div style="margin-bottom:8px">'
+      + '<div style="font-family:var(--mono);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;padding-bottom:3px;border-bottom:.5px solid var(--b1)">' + sec.title + '</div>'
+      + '<div class="params-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">' + rowsHtml + '</div>'
+      + '</div>';
   }).join('');
 
-  // Params grid
-  const paramsHtml = Object.entries(td.params).map(([k,v]) =>
-    `<div class="param-row"><span class="param-key">${k}</span><span class="param-val">${v}</span></div>`
-  ).join('');
+  const paramsHtml = Object.keys(td.params).map(function(k){
+    return '<div class="param-row"><span class="param-key">' + k + '</span><span class="param-val">' + td.params[k] + '</span></div>';
+  }).join('');
 
-  // Side comparison
   const B = td.buy_stats, S = td.sell_stats;
-  const sideHtml = B.n && S.n ? `
-    <table><thead><tr><th>Метрика</th><th style="color:var(--bl)">BUY (${B.n})</th><th style="color:var(--r)">SELL (${S.n})</th></tr></thead>
-    <tbody>
-      ${[['Net', (B.net>=0?'+$':'-$')+Math.abs(B.net).toFixed(2), (S.net>=0?'+$':'-$')+Math.abs(S.net).toFixed(2), B.net, S.net],
-         ['WR%', B.wr+'%', S.wr+'%', B.wr, S.wr],
-         ['Ср.выигрыш', '+$'+B.avg_win.toFixed(2), '+$'+S.avg_win.toFixed(2), B.avg_win, S.avg_win],
-         ['Ср.убыток', '-$'+Math.abs(B.avg_loss).toFixed(2), '-$'+Math.abs(S.avg_loss).toFixed(2), B.avg_loss, S.avg_loss]]
-        .map(([l,va,vb,na,nb]) => `<tr><td class="muted">${l}</td>
-          <td class="num" style="color:${na>=nb?'#20c77a':'#b8c0d0'}">${va}</td>
-          <td class="num" style="color:${nb>na?'#20c77a':'#b8c0d0'}">${vb}</td></tr>`).join('')}
-    </tbody></table>` : '<span class="muted" style="font-size:11px">Нет данных</span>';
+  const sideHtml = (B.n && S.n) ?
+    '<table><thead><tr><th>Метрика</th><th style="color:var(--bl)">BUY (' + B.n + ')</th><th style="color:var(--r)">SELL (' + S.n + ')</th></tr></thead><tbody>'
+    + [
+        ['Net', (B.net>=0?'+$':'-$')+Math.abs(B.net).toFixed(2), (S.net>=0?'+$':'-$')+Math.abs(S.net).toFixed(2), B.net, S.net],
+        ['WR%', B.wr+'%', S.wr+'%', B.wr, S.wr],
+        ['Ср.выигрыш', '+$'+B.avg_win.toFixed(2), '+$'+S.avg_win.toFixed(2), B.avg_win, S.avg_win],
+        ['Ср.убыток', '-$'+Math.abs(B.avg_loss).toFixed(2), '-$'+Math.abs(S.avg_loss).toFixed(2), B.avg_loss, S.avg_loss]
+      ].map(function(row){
+        const l=row[0],va=row[1],vb=row[2],na=row[3],nb=row[4];
+        return '<tr><td class="muted">' + l + '</td><td class="num" style="color:' + (na>=nb?'#20c77a':'#b8c0d0') + '">' + va + '</td><td class="num" style="color:' + (nb>na?'#20c77a':'#b8c0d0') + '">' + vb + '</td></tr>';
+      }).join('')
+    + '</tbody></table>'
+    : '<span class="muted" style="font-size:11px">Нет данных</span>';
 
-  // Hourly heatmap
   const hd = td.hourly;
-  const maxH = Math.max(...Object.values(hd).map(v => Math.abs(v.net)), 1);
+  const hdVals = Object.keys(hd).map(function(k){ return Math.abs(hd[k].net); });
+  const maxH = Math.max.apply(null, hdVals.concat([1]));
   let hhtml = '<div style="display:grid;grid-template-columns:repeat(24,1fr);gap:2px">';
-  for(let h = 0; h < 24; h++){
+  for (let h = 0; h < 24; h++) {
     const v = hd[String(h)] || {net:0, n:0};
     const int = Math.abs(v.net) / maxH;
     const bg = v.net >= 0
-      ? `rgba(32,199,122,${(0.08+int*.7).toFixed(2)})`
-      : `rgba(240,96,74,${(0.08+int*.7).toFixed(2)})`;
-    hhtml += `<div class="hm-cell" style="background:${bg};height:34px;flex-direction:column;gap:1px"
-      title="${String(h).padStart(2,'0')}:00 | $${v.net.toFixed(2)} | ${v.n} сд">
-      <span style="font-size:8px;opacity:.7">${String(h).padStart(2,'0')}</span>
-      <span style="font-size:7px;opacity:.6">${v.n||''}</span></div>`;
+      ? 'rgba(32,199,122,' + (0.08+int*.7).toFixed(2) + ')'
+      : 'rgba(240,96,74,' + (0.08+int*.7).toFixed(2) + ')';
+    hhtml += '<div class="hm-cell" style="background:' + bg + ';height:34px;flex-direction:column;gap:1px" title="' + String(h).padStart(2,'0') + ':00 | $' + v.net.toFixed(2) + ' | ' + v.n + ' сд">'
+      + '<span style="font-size:8px;opacity:.7">' + String(h).padStart(2,'0') + '</span>'
+      + '<span style="font-size:7px;opacity:.6">' + (v.n||'') + '</span></div>';
   }
   hhtml += '</div>';
 
-  // Trade rows
-  const tradeRows = td.trades.map((t,i) => {
+  const tradeRows = td.trades.map(function(t,i){
     const pc = t.profit >= 0 ? '#20c77a' : '#f0604a';
     const oc = t.outcome === 'TP' ? 'tg' : 'tr';
-    return `<tr>
-      <td style="color:var(--t3)">${i+1}</td>
-      <td style="color:var(--t3)">${t.open_time}</td>
-      <td><span class="tag ${t.type==='BUY'?'tb':'tr'}">${t.type}</span></td>
-      <td>${t.vol}</td><td>${t.open_p}</td><td>${t.close_p}</td>
-      <td style="color:var(--t3)">${t.sl||'—'}</td>
-      <td style="color:var(--t3)">${t.tp||'—'}</td>
-      <td class="num" style="color:${pc};font-weight:500">${t.profit>=0?'+$':'-$'}${Math.abs(t.profit).toFixed(2)}</td>
-      <td class="num" style="color:${t.r_mult>0?'#20c77a':'#f0604a'}">${t.r_mult>0?'+':''}${t.r_mult}</td>
-      <td><span class="tag ${oc}">${t.outcome}</span></td>
-      <td style="color:var(--t3)">${t.dur}</td>
-      <td style="font-family:var(--mono);font-size:10px;color:var(--t2)">$${t.balance}</td>
-    </tr>`;
+    return '<tr>'
+      + '<td style="color:var(--t3)">' + (i+1) + '</td>'
+      + '<td style="color:var(--t3)">' + t.open_time + '</td>'
+      + '<td><span class="tag ' + (t.type==='BUY'?'tb':'tr') + '">' + t.type + '</span></td>'
+      + '<td>' + t.vol + '</td><td>' + t.open_p + '</td><td>' + t.close_p + '</td>'
+      + '<td style="color:var(--t3)">' + (t.sl||'—') + '</td>'
+      + '<td style="color:var(--t3)">' + (t.tp||'—') + '</td>'
+      + '<td class="num" style="color:' + pc + ';font-weight:500">' + (t.profit>=0?'+$':'-$') + Math.abs(t.profit).toFixed(2) + '</td>'
+      + '<td class="num" style="color:' + (t.r_mult>0?'#20c77a':'#f0604a') + '">' + (t.r_mult>0?'+':'') + t.r_mult + '</td>'
+      + '<td><span class="tag ' + oc + '">' + t.outcome + '</span></td>'
+      + '<td style="color:var(--t3)">' + t.dur + '</td>'
+      + '<td style="font-family:var(--mono);font-size:10px;color:var(--t2)">$' + t.balance + '</td>'
+      + '</tr>';
   }).join('');
 
-  return `
-    <div style="margin-bottom:8px">
-      <div class="card-title" style="margin-bottom:8px">
-        <span class="card-dot" style="background:var(--cy)"></span>Полный отчёт MT4
-      </div>
-      ${mt4SummaryHtml}
-    </div>
-    <div class="row r2" style="margin-bottom:8px">
-      <div>
-        <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Параметры запуска</div>
-        ${paramsHtml ? '<div class="params-grid">' + paramsHtml + '</div>' : '<span class="muted" style="font-size:11px">Нет параметров</span>'}
-      </div>
-      <div>
-        <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>
-        ${sideHtml}
-        <div style="margin-top:10px">
-          <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>По часам</div>
-          ${hhtml}
-        </div>
-      </div>
-    </div>
-    <div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--tx)"></span>Сделки · ${run.name}</div>
-    <div class="tbl-wrap-lg">
-    <table><thead><tr>
-      <th>№</th><th>Открытие</th><th>Тип</th><th>Лот</th>
-      <th>Откр.</th><th>Закр.</th><th>SL</th><th>TP</th>
-      <th class="num">Прибыль</th><th class="num">R</th>
-      <th>Исход</th><th>Дл.(м)</th><th>Баланс</th>
-    </tr></thead><tbody>${tradeRows}</tbody></table>
-    </div>`;
+  return '<div style="margin-bottom:8px">'
+    + '<div class="card-title" style="margin-bottom:8px"><span class="card-dot" style="background:var(--cy)"></span>Полный отчёт MT4</div>'
+    + mt4SummaryHtml
+    + '</div>'
+    + '<div class="row r2" style="margin-bottom:8px">'
+    +   '<div>'
+    +     '<div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>Параметры запуска</div>'
+    +     (paramsHtml ? '<div class="params-grid">' + paramsHtml + '</div>' : '<span class="muted" style="font-size:11px">Нет параметров</span>')
+    +   '</div>'
+    +   '<div>'
+    +     '<div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--bl)"></span>Long vs Short</div>'
+    +     sideHtml
+    +     '<div style="margin-top:10px">'
+    +       '<div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--a)"></span>По часам</div>'
+    +       hhtml
+    +     '</div>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="card-title" style="margin-bottom:6px"><span class="card-dot" style="background:var(--tx)"></span>Сделки · ' + run.name + '</div>'
+    + '<div class="tbl-wrap-lg"><table><thead><tr>'
+    +   '<th>№</th><th>Открытие</th><th>Тип</th><th>Лот</th>'
+    +   '<th>Откр.</th><th>Закр.</th><th>SL</th><th>TP</th>'
+    +   '<th class="num">Прибыль</th><th class="num">R</th>'
+    +   '<th>Исход</th><th>Дл.(м)</th><th>Баланс</th>'
+    + '</tr></thead><tbody>' + tradeRows + '</tbody></table></div>';
 }
 
-// ── COMPARE CHART ────────────────────────────────────────────────
 function updateRunsChart() {
-  if(!runsChart || !RUNS.length) return;
+  if (!runsChart || !RUNS.length) return;
 
-  const datasets = RUNS.map(({name, color, data: td}) => {
-    if(runsChartMode === 'balance') {
+  const datasets = RUNS.map(function(run) {
+    const name = run.name, color = run.color, td = run.data;
+    if (runsChartMode === 'balance') {
       return {
         label: name,
-        data:  td.equity_curve.map(([x,y]) => ({x, y})),
-        borderColor: color,
-        backgroundColor: 'transparent',
-        borderWidth: 1.8,
-        fill: false,
+        data:  td.equity_curve.map(function(p){ return {x:p[0], y:p[1]}; }),
+        borderColor: color, backgroundColor: 'transparent', borderWidth: 1.8, fill: false,
       };
-    } else if(runsChartMode === 'dd') {
+    } else if (runsChartMode === 'dd') {
       let peak = 0;
-      const data = td.equity_curve.map(([x,y]) => {
-        if(y > peak) peak = y;
-        return {x, y: Math.round((peak - y) * -100) / 100};
+      const data = td.equity_curve.map(function(p){
+        const x=p[0], y=p[1];
+        if (y > peak) peak = y;
+        return {x: x, y: Math.round((peak - y) * -100) / 100};
       });
-      return {
-        label: name,
-        data,
-        borderColor: color,
-        backgroundColor: 'transparent',
-        borderWidth: 1.8,
-        fill: false,
-      };
+      return {label: name, data: data, borderColor: color, backgroundColor: 'transparent', borderWidth: 1.8, fill: false};
     } else {
-      // daily
       const daily = {};
-      td.trades.forEach(t => { daily[t.date] = (daily[t.date]||0) + t.profit; });
-      const entries = Object.entries(daily).sort();
+      td.trades.forEach(function(t){ daily[t.date] = (daily[t.date]||0) + t.profit; });
+      const entries = Object.keys(daily).sort().map(function(d){ return [d, daily[d]]; });
       return {
         label: name,
-        data: entries.map(([x,y]) => ({x, y: Math.round(y*100)/100})),
-        borderColor: color,
-        backgroundColor: color + '33',
-        borderWidth: 1.5,
-        fill: false,
-        type: 'bar',
+        data: entries.map(function(e){ return {x:e[0], y:Math.round(e[1]*100)/100}; }),
+        borderColor: color, backgroundColor: color + '33', borderWidth: 1.5, fill: false, type: 'bar',
       };
     }
   });
 
-  runsChart.data = {datasets};
+  runsChart.data = {datasets: datasets};
   runsChart.options.scales.y.title = {
     display: true,
     text: runsChartMode === 'dd' ? 'Просадка ($)' : 'Баланс ($)',
@@ -2195,17 +2026,14 @@ function updateRunsChart() {
   runsChart.update();
 }
 
-function initTesterSnapshot(){
-  // Снапшот удалён — загрузка только через UI
-}
-
 
 // ══════════════════════════════════════════════════════════════
-// BOOT
+// BOOT — единственная точка инициализации
 // ══════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function(){
+  // Живая торговля
   initData();
-  filteredTrades=[...ALL_TRADES];
+  filteredTrades = ALL_TRADES.slice();
   setPeriodLabel();
   initFilterPills();
   initCharts();
@@ -2213,8 +2041,48 @@ document.addEventListener('DOMContentLoaded', function(){
   applyFilters();
   switchMode('std');
   updateCalcCards();
-  initTesterSnapshot();
+
+  // Тестер — файловый инпут
+  var testerInp = document.getElementById('tester-add-input');
+  if (testerInp) {
+    testerInp.addEventListener('change', function(e){
+      var files = Array.prototype.slice.call(e.target.files);
+      files.forEach(function(f){ loadRunFile(f); });
+      this.value = '';
+    });
+  }
+
+  // Тестер — график сравнения
+  var testerCtx = document.getElementById('tester-compare-chart');
+  if (testerCtx) {
+    runsChart = new Chart(testerCtx.getContext('2d'), {
+      type: 'line',
+      data: {datasets: []},
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        interaction: {mode: 'index', intersect: false},
+        plugins: {
+          legend: {
+            display: true, position: 'top',
+            labels: {boxWidth: 10, padding: 12, font: {size: 10}, color: '#b8c0d0', usePointStyle: true}
+          },
+          tooltip: {
+            callbacks: {
+              title: function(ctx){ return (ctx[0] && ctx[0].raw) ? (ctx[0].raw.x || '') : ''; },
+              label: function(ctx){ return ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toFixed(2); }
+            }
+          }
+        },
+        scales: {
+          x: {display: false},
+          y: {grid: {color: 'rgba(255,255,255,.04)'}, ticks: {callback: function(v){ return '$' + v.toFixed(0); }}}
+        },
+        elements: {point: {radius: 0, hoverRadius: 4}, line: {tension: .2, borderWidth: 1.8}}
+      }
+    });
+  }
 });
+
 </script>
 </body>
 </html>
